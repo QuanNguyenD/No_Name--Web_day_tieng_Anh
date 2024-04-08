@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Web_day_tieng_Anh</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    @* <link rel="stylesheet" href="~/Web_day_tieng_Anh.styles.css" asp-append-version="true" /> *@
+</head>
+<body>
+    <header>
+    <nav class="flex-div">
+        <div class="nav-left flex-div">
+            <!-- <img src="img/menu2.png"> -->
+
+            <a href="#main-home"><img src="img/Logo2.png"></a>
+            <img class="menu-icon" id="menu-icon" src="img/menu2.png">
+        </div>
+        <div class="nav-mid flex-div">
+            <div class="search">
+                <div class="icon"></div>
+                <div class="input">
+                    <input type="text" placeholder="Search" id="msearch">
+                </div>
+                <span class="clear" onclick="document.getElementById('msearch').value = ''"></span>
+
+
+            </div>
+
+        </div>
+        <div class="nav-right flex-div">
+
+            <a class="check-active" href="#main-home">Home</a>
+            <a href="#exploring">Exploring</a>
+            <a href="#main-home">Home</a>
+            <a href="#page-container">About Us</a>
+            <a href="login.html">Log in</a>
+
+        </div>
+    </nav>
+    </header>
+    <div>
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <div id="page-container">
+        <footer>
+            <div class="row-footer">
+                <div class="col-footer">
+
+                    <h3>Giới thiệu</h3>
+                    <p>Phòng truyền thông</p>
+                    <p>Điều khoản chính sách</p>
+                    <p>Quy chế tuyển dụng</p>
+
+                </div>
+                <div class="col-footer">
+                    <h3>Top Tutorials</h3>
+                    <p>HOCMAI Topclass</p>
+                    <p>PAT HSA</p>
+                    <p>PAT HUST</p>
+                    <p>PAT VNU-HCM</p>
+                </div>
+
+                <div class="col-footer">
+                    <h3>Top Examples</h3>
+                    <p>HOCMAI Topclass</p>
+                    <p>PAT HSA</p>
+                    <p>PAT HUST</p>
+                    <p>PAT VNU-HCM</p>
+                </div>
+                <div class="col-footer link-footer">
+                    <h3>Top References</h3>
+                    <p>HOCMAI Topclass</p>
+                    <p>PAT HSA</p>
+                    <p>PAT HUST</p>
+                    <a href="#"><p>PAT VNU-HCM</p></a>
+                    @* <ul class="link-footer">
+                        <li><a href="">HOCMAI Topclass</a></li>
+                        <li><a href="">HOCMAI Topclass</a></li>
+                        <li><a href="">HOCMAI Topclass</a></li>
+                        <li><a href="">HOCMAI Topclass</a></li>
+                        <li><a href="">HOCMAI Topclass</a></li>
+                    </ul> *@
+                </div>
+                <div class="col-footer-2">
+                    <a target="_blank" href="https://www.youtube.com"><i class="fa-brands fa-youtube" style='font-size:24px'></i></a>
+                    <a target="_blank" href="https://discord.gg/6Z7UaRbUQM"><i class="fa-brands fa-discord" style='font-size:24px'></i></a>
+                    <a target="_blank" href=""><i class="fa-brands fa-facebook-messenger" style='font-size:24px'></i></a>
+                    <a target="_blank" href=""><i class="fa-brands fa-instagram" style='font-size:24px'></i></a>
+
+                    <p>
+                        W3Schools is optimized for learning and training. Examples might be simplified to improve reading and learning.
+                        Tutorials, references, and examples are constantly reviewed to avoid errors, but we cannot warrant full correctness
+                        of all content. While using W3Schools, you agree to have read and accepted our terms of use, cookie and privacy policy.
+                    </p>
+
+                </div>
+
+
+            </div>
+        </footer>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
