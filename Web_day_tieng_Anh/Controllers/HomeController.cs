@@ -22,6 +22,27 @@ namespace Web_day_tieng_Anh.Controllers
         {
             return View();
         }
+        public IActionResult about() 
+        {
+            return View();
+        }
+        public IActionResult Courses() 
+        {
+            return View();
+        }
+        public IActionResult Trainers()
+        {
+            return View();
+        }
+        //Dua courses va detaild vao 1 file controllel
+        public IActionResult CoursesDetail()
+        {
+            return View();
+        }
+        public IActionResult Event()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
