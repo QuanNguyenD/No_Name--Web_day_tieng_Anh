@@ -5,12 +5,12 @@ namespace Web_day_tieng_Anh.Models
     public class StudentProgress
     {
         [Key]
-        public int progressId { get; set; }
-        public int lessionId { get; set; }
-        public int enrollmentId { get; set; }
-        public bool completed { get; set; }
-        public DateTime completedDate { get; set; }
-        public Enrollment? enrollments { get; set; }
+        public int ProgressId { get; set; }
+        public int LessionId { get; set; }
+        public int EnrollmentId { get; set; }
+        public bool Completed { get; set; }
+        public DateTime CompletedDate { get; set; }
+        public Enrollment? Enrollments { get; set; }
         public Lesson? Lesson { get; set; }
 
     }

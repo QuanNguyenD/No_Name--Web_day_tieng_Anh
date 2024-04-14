@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Web_day_tieng_Anh.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class AddIdentity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -56,14 +56,14 @@ namespace Web_day_tieng_Anh.Migrations
                 name: "CourseGroups",
                 columns: table => new
                 {
-                    groupId = table.Column<int>(type: "int", nullable: false)
+                    GroupId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    groupName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    groupDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    GroupName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    GroupDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CourseGroups", x => x.groupId);
+                    table.PrimaryKey("PK_CourseGroups", x => x.GroupId);
                 });
 
             migrationBuilder.CreateTable(
@@ -176,48 +176,48 @@ namespace Web_day_tieng_Anh.Migrations
                 name: "Courses",
                 columns: table => new
                 {
-                    courseId = table.Column<int>(type: "int", nullable: false)
+                    CourseId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    courseName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    courseDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    level = table.Column<int>(type: "int", nullable: false),
-                    price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ratings = table.Column<int>(type: "int", nullable: false),
-                    CourseGroupsgroupId = table.Column<int>(type: "int", nullable: true)
+                    CourseName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    CourseDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Level = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Ratings = table.Column<int>(type: "int", nullable: false),
+                    CourseGroupsGroupId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Courses", x => x.courseId);
+                    table.PrimaryKey("PK_Courses", x => x.CourseId);
                     table.ForeignKey(
-                        name: "FK_Courses_CourseGroups_CourseGroupsgroupId",
-                        column: x => x.CourseGroupsgroupId,
+                        name: "FK_Courses_CourseGroups_CourseGroupsGroupId",
+                        column: x => x.CourseGroupsGroupId,
                         principalTable: "CourseGroups",
-                        principalColumn: "groupId");
+                        principalColumn: "GroupId");
                 });
 
             migrationBuilder.CreateTable(
                 name: "CourseGroupMappings",
                 columns: table => new
                 {
-                    mappingId = table.Column<int>(type: "int", nullable: false)
+                    MappingId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    courseId = table.Column<int>(type: "int", nullable: false),
-                    groupId = table.Column<int>(type: "int", nullable: false),
-                    courseGroupgroupId = table.Column<int>(type: "int", nullable: true)
+                    CourseId = table.Column<int>(type: "int", nullable: false),
+                    GroupId = table.Column<int>(type: "int", nullable: false),
+                    CourseGroupGroupId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CourseGroupMappings", x => x.mappingId);
+                    table.PrimaryKey("PK_CourseGroupMappings", x => x.MappingId);
                     table.ForeignKey(
-                        name: "FK_CourseGroupMappings_CourseGroups_courseGroupgroupId",
-                        column: x => x.courseGroupgroupId,
+                        name: "FK_CourseGroupMappings_CourseGroups_CourseGroupGroupId",
+                        column: x => x.CourseGroupGroupId,
                         principalTable: "CourseGroups",
-                        principalColumn: "groupId");
+                        principalColumn: "GroupId");
                     table.ForeignKey(
-                        name: "FK_CourseGroupMappings_Courses_courseId",
-                        column: x => x.courseId,
+                        name: "FK_CourseGroupMappings_Courses_CourseId",
+                        column: x => x.CourseId,
                         principalTable: "Courses",
-                        principalColumn: "courseId",
+                        principalColumn: "CourseId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -225,25 +225,25 @@ namespace Web_day_tieng_Anh.Migrations
                 name: "Enrollments",
                 columns: table => new
                 {
-                    enrollmentsId = table.Column<int>(type: "int", nullable: false)
+                    EnrollmentsId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    courseId = table.Column<int>(type: "int", nullable: false),
-                    enrollmentsDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CourseId = table.Column<int>(type: "int", nullable: false),
+                    EnrollmentsDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Enrollments", x => x.enrollmentsId);
+                    table.PrimaryKey("PK_Enrollments", x => x.EnrollmentsId);
                     table.ForeignKey(
                         name: "FK_Enrollments_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Enrollments_Courses_courseId",
-                        column: x => x.courseId,
+                        name: "FK_Enrollments_Courses_CourseId",
+                        column: x => x.CourseId,
                         principalTable: "Courses",
-                        principalColumn: "courseId",
+                        principalColumn: "CourseId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -251,22 +251,22 @@ namespace Web_day_tieng_Anh.Migrations
                 name: "Lessons",
                 columns: table => new
                 {
-                    lessionId = table.Column<int>(type: "int", nullable: false)
+                    LessionId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    courseId = table.Column<int>(type: "int", nullable: false),
-                    lessonName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    lessonDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CourseId = table.Column<int>(type: "int", nullable: false),
+                    LessonName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LessonDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     VideoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    quiz = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Quiz = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Lessons", x => x.lessionId);
+                    table.PrimaryKey("PK_Lessons", x => x.LessionId);
                     table.ForeignKey(
-                        name: "FK_Lessons_Courses_courseId",
-                        column: x => x.courseId,
+                        name: "FK_Lessons_Courses_CourseId",
+                        column: x => x.CourseId,
                         principalTable: "Courses",
-                        principalColumn: "courseId",
+                        principalColumn: "CourseId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -274,20 +274,20 @@ namespace Web_day_tieng_Anh.Migrations
                 name: "Tests",
                 columns: table => new
                 {
-                    testId = table.Column<int>(type: "int", nullable: false)
+                    TestId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    courseId = table.Column<int>(type: "int", nullable: false),
-                    testName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    testDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CourseId = table.Column<int>(type: "int", nullable: false),
+                    TestName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TestDescription = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tests", x => x.testId);
+                    table.PrimaryKey("PK_Tests", x => x.TestId);
                     table.ForeignKey(
-                        name: "FK_Tests_Courses_courseId",
-                        column: x => x.courseId,
+                        name: "FK_Tests_Courses_CourseId",
+                        column: x => x.CourseId,
                         principalTable: "Courses",
-                        principalColumn: "courseId",
+                        principalColumn: "CourseId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -295,67 +295,67 @@ namespace Web_day_tieng_Anh.Migrations
                 name: "Comments",
                 columns: table => new
                 {
-                    commentId = table.Column<int>(type: "int", nullable: false)
+                    CommentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    commentContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    lessionId = table.Column<int>(type: "int", nullable: false),
-                    LessonlessionId = table.Column<int>(type: "int", nullable: true)
+                    CommentContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LessionId = table.Column<int>(type: "int", nullable: false),
+                    LessonLessionId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comments", x => x.commentId);
+                    table.PrimaryKey("PK_Comments", x => x.CommentId);
                     table.ForeignKey(
-                        name: "FK_Comments_Lessons_LessonlessionId",
-                        column: x => x.LessonlessionId,
+                        name: "FK_Comments_Lessons_LessonLessionId",
+                        column: x => x.LessonLessionId,
                         principalTable: "Lessons",
-                        principalColumn: "lessionId");
+                        principalColumn: "LessionId");
                 });
 
             migrationBuilder.CreateTable(
                 name: "StudentProgresses",
                 columns: table => new
                 {
-                    progressId = table.Column<int>(type: "int", nullable: false)
+                    ProgressId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    lessionId = table.Column<int>(type: "int", nullable: false),
-                    enrollmentId = table.Column<int>(type: "int", nullable: false),
-                    completed = table.Column<bool>(type: "bit", nullable: false),
-                    completedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LessonlessionId = table.Column<int>(type: "int", nullable: true)
+                    LessionId = table.Column<int>(type: "int", nullable: false),
+                    EnrollmentId = table.Column<int>(type: "int", nullable: false),
+                    Completed = table.Column<bool>(type: "bit", nullable: false),
+                    CompletedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LessonLessionId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentProgresses", x => x.progressId);
+                    table.PrimaryKey("PK_StudentProgresses", x => x.ProgressId);
                     table.ForeignKey(
-                        name: "FK_StudentProgresses_Enrollments_enrollmentId",
-                        column: x => x.enrollmentId,
+                        name: "FK_StudentProgresses_Enrollments_EnrollmentId",
+                        column: x => x.EnrollmentId,
                         principalTable: "Enrollments",
-                        principalColumn: "enrollmentsId",
+                        principalColumn: "EnrollmentsId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_StudentProgresses_Lessons_LessonlessionId",
-                        column: x => x.LessonlessionId,
+                        name: "FK_StudentProgresses_Lessons_LessonLessionId",
+                        column: x => x.LessonLessionId,
                         principalTable: "Lessons",
-                        principalColumn: "lessionId");
+                        principalColumn: "LessionId");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Questions",
                 columns: table => new
                 {
-                    questionId = table.Column<int>(type: "int", nullable: false)
+                    QuestionId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    testId = table.Column<int>(type: "int", nullable: false),
-                    questionContent = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    TestId = table.Column<int>(type: "int", nullable: false),
+                    QuestionContent = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Questions", x => x.questionId);
+                    table.PrimaryKey("PK_Questions", x => x.QuestionId);
                     table.ForeignKey(
-                        name: "FK_Questions_Tests_testId",
-                        column: x => x.testId,
+                        name: "FK_Questions_Tests_TestId",
+                        column: x => x.TestId,
                         principalTable: "Tests",
-                        principalColumn: "testId",
+                        principalColumn: "TestId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -363,18 +363,18 @@ namespace Web_day_tieng_Anh.Migrations
                 name: "TestScores",
                 columns: table => new
                 {
-                    scoreId = table.Column<int>(type: "int", nullable: false)
+                    ScoreId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    testId = table.Column<int>(type: "int", nullable: false)
+                    TestId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TestScores", x => x.scoreId);
+                    table.PrimaryKey("PK_TestScores", x => x.ScoreId);
                     table.ForeignKey(
-                        name: "FK_TestScores_Tests_testId",
-                        column: x => x.testId,
+                        name: "FK_TestScores_Tests_TestId",
+                        column: x => x.TestId,
                         principalTable: "Tests",
-                        principalColumn: "testId",
+                        principalColumn: "TestId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -382,27 +382,27 @@ namespace Web_day_tieng_Anh.Migrations
                 name: "Answers",
                 columns: table => new
                 {
-                    answerId = table.Column<int>(type: "int", nullable: false)
+                    AnswerId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    questionId = table.Column<int>(type: "int", nullable: false),
-                    answerContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    isCorrect = table.Column<bool>(type: "bit", nullable: false)
+                    QuestionId = table.Column<int>(type: "int", nullable: false),
+                    AnswerContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsCorrect = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Answers", x => x.answerId);
+                    table.PrimaryKey("PK_Answers", x => x.AnswerId);
                     table.ForeignKey(
-                        name: "FK_Answers_Questions_questionId",
-                        column: x => x.questionId,
+                        name: "FK_Answers_Questions_QuestionId",
+                        column: x => x.QuestionId,
                         principalTable: "Questions",
-                        principalColumn: "questionId",
+                        principalColumn: "QuestionId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Answers_questionId",
+                name: "IX_Answers_QuestionId",
                 table: "Answers",
-                column: "questionId");
+                column: "QuestionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -444,29 +444,29 @@ namespace Web_day_tieng_Anh.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_LessonlessionId",
+                name: "IX_Comments_LessonLessionId",
                 table: "Comments",
-                column: "LessonlessionId");
+                column: "LessonLessionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseGroupMappings_courseGroupgroupId",
+                name: "IX_CourseGroupMappings_CourseGroupGroupId",
                 table: "CourseGroupMappings",
-                column: "courseGroupgroupId");
+                column: "CourseGroupGroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseGroupMappings_courseId",
+                name: "IX_CourseGroupMappings_CourseId",
                 table: "CourseGroupMappings",
-                column: "courseId");
+                column: "CourseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Courses_CourseGroupsgroupId",
+                name: "IX_Courses_CourseGroupsGroupId",
                 table: "Courses",
-                column: "CourseGroupsgroupId");
+                column: "CourseGroupsGroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Enrollments_courseId",
+                name: "IX_Enrollments_CourseId",
                 table: "Enrollments",
-                column: "courseId");
+                column: "CourseId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Enrollments_UserId",
@@ -474,34 +474,34 @@ namespace Web_day_tieng_Anh.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Lessons_courseId",
+                name: "IX_Lessons_CourseId",
                 table: "Lessons",
-                column: "courseId");
+                column: "CourseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Questions_testId",
+                name: "IX_Questions_TestId",
                 table: "Questions",
-                column: "testId");
+                column: "TestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentProgresses_enrollmentId",
+                name: "IX_StudentProgresses_EnrollmentId",
                 table: "StudentProgresses",
-                column: "enrollmentId");
+                column: "EnrollmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentProgresses_LessonlessionId",
+                name: "IX_StudentProgresses_LessonLessionId",
                 table: "StudentProgresses",
-                column: "LessonlessionId");
+                column: "LessonLessionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tests_courseId",
+                name: "IX_Tests_CourseId",
                 table: "Tests",
-                column: "courseId");
+                column: "CourseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TestScores_testId",
+                name: "IX_TestScores_TestId",
                 table: "TestScores",
-                column: "testId");
+                column: "TestId");
         }
 
         /// <inheritdoc />

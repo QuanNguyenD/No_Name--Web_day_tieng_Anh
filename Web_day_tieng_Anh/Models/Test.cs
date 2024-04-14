@@ -2,12 +2,12 @@
 {
     public class Test
     {
-        public int testId { get; set; }
-        public int courseId { get; set; }
-        public string testName { get; set; }
-        public string testDescription { get; set; }
-        public Course? course { get; set; }
+        public int TestId { get; set; }
+        public int CourseId { get; set; }
+        public string TestName { get; set; }
+        public string TestDescription { get; set; }
+        public Course? Course { get; set; }
 
-        public List<Question>? question { get; set; }
+        public List<Question>? Question { get; set; }
     }
 }

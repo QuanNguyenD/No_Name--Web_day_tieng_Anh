@@ -2,9 +2,9 @@
 {
     public class Comment
     {
-        public int commentId { get; set; }
-        public string commentContent { get; set; }
-        public int lessionId { get; set; }
+        public int CommentId { get; set; }
+        public string CommentContent { get; set; }
+        public int LessionId { get; set; }
         public Lesson? Lesson { get; set; }
     }
 }

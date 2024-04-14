@@ -5,11 +5,11 @@ namespace Web_day_tieng_Anh.Models
     public class CourseGroup
     {
         [Key]
-        public int groupId { get; set; }
+        public int GroupId { get; set; }
         [Required, StringLength(50)]
-        public string groupName { get; set; }
-        public string groupDescription { get; set; }
-        public List<Course>? courses { get; set; }
+        public string GroupName { get; set; }
+        public string GroupDescription { get; set; }
+        public List<Course>? Courses { get; set; }
 
     }
 }

@@ -2,11 +2,11 @@
 {
     public class Answer
     {
-        public int answerId { get; set; }
-        public int questionId { get; set; }
-        public string answerContent { get; set; }
+        public int AnswerId { get; set; }
+        public int QuestionId { get; set; }
+        public string AnswerContent { get; set; }
 
-        public bool isCorrect {  get; set; }
+        public bool IsCorrect {  get; set; }
         public Question? Question { get; set; }
     }
 }

@@ -3,16 +3,16 @@ namespace Web_day_tieng_Anh.Models
 {
     public class Course
     {
-        public int courseId { get; set; }
+        public int CourseId { get; set; }
         [Required, StringLength(100)]
-        public string courseName { get; set; }
+        public string CourseName { get; set; }
         [Range(0.01, 10000.00)]
-        public string courseDescription { get; set; }
+        public string CourseDescription { get; set; }
 
-        public int level { get; set; } 
-        public decimal price { get; set; }   
+        public int Level { get; set; } 
+        public decimal Price { get; set; }   
 
-        public int ratings { get; set; }
+        public int Ratings { get; set; }
 
         public CourseGroup? CourseGroups { get; set; }
         public List<Test>? Tests { get; set; }

@@ -2,9 +2,9 @@
 {
     public class Question
     {
-        public int questionId { get; set; }
-        public int testId { get; set; }
-        public string questionContent { get; set; }
+        public int QuestionId { get; set; }
+        public int TestId { get; set; }
+        public string QuestionContent { get; set; }
         public Test? Test { get; set; }
 
         public List<Answer>? Answers { get; set;}

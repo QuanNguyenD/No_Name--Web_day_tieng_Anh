@@ -5,8 +5,8 @@ namespace Web_day_tieng_Anh.Models
     public class TestScore
     {
         [Key]
-        public int scoreId { get; set; }
-        public int testId { get; set; }
+        public int ScoreId { get; set; }
+        public int TestId { get; set; }
         public Test Test { get; set; }
     }
 }

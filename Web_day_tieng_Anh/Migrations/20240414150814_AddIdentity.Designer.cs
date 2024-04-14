@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Web_day_tieng_Anh.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240409165949_Initial")]
-    partial class Initial
+    [Migration("20240414150814_AddIdentity")]
+    partial class AddIdentity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,26 +26,26 @@ namespace Web_day_tieng_Anh.Migrations
 
             modelBuilder.Entity("Enrollment", b =>
                 {
-                    b.Property<int>("enrollmentsId")
+                    b.Property<int>("EnrollmentsId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("enrollmentsId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EnrollmentsId"));
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("EnrollmentsDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("courseId")
-                        .HasColumnType("int");
+                    b.HasKey("EnrollmentsId");
 
-                    b.Property<DateTime>("enrollmentsDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("enrollmentsId");
+                    b.HasIndex("CourseId");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("courseId");
 
                     b.ToTable("Enrollments");
                 });
@@ -185,25 +185,25 @@ namespace Web_day_tieng_Anh.Migrations
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Answer", b =>
                 {
-                    b.Property<int>("answerId")
+                    b.Property<int>("AnswerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("answerId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AnswerId"));
 
-                    b.Property<string>("answerContent")
+                    b.Property<string>("AnswerContent")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("isCorrect")
+                    b.Property<bool>("IsCorrect")
                         .HasColumnType("bit");
 
-                    b.Property<int>("questionId")
+                    b.Property<int>("QuestionId")
                         .HasColumnType("int");
 
-                    b.HasKey("answerId");
+                    b.HasKey("AnswerId");
 
-                    b.HasIndex("questionId");
+                    b.HasIndex("QuestionId");
 
                     b.ToTable("Answers");
                 });
@@ -282,260 +282,260 @@ namespace Web_day_tieng_Anh.Migrations
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Comment", b =>
                 {
-                    b.Property<int>("commentId")
+                    b.Property<int>("CommentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("commentId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommentId"));
 
-                    b.Property<int?>("LessonlessionId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("commentContent")
+                    b.Property<string>("CommentContent")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("lessionId")
+                    b.Property<int>("LessionId")
                         .HasColumnType("int");
 
-                    b.HasKey("commentId");
+                    b.Property<int?>("LessonLessionId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("LessonlessionId");
+                    b.HasKey("CommentId");
+
+                    b.HasIndex("LessonLessionId");
 
                     b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Course", b =>
                 {
-                    b.Property<int>("courseId")
+                    b.Property<int>("CourseId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("courseId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseId"));
 
-                    b.Property<int?>("CourseGroupsgroupId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("courseDescription")
+                    b.Property<string>("CourseDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("courseName")
+                    b.Property<int?>("CourseGroupsGroupId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CourseName")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("level")
+                    b.Property<int>("Level")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("price")
+                    b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ratings")
+                    b.Property<int>("Ratings")
                         .HasColumnType("int");
 
-                    b.HasKey("courseId");
+                    b.HasKey("CourseId");
 
-                    b.HasIndex("CourseGroupsgroupId");
+                    b.HasIndex("CourseGroupsGroupId");
 
                     b.ToTable("Courses");
                 });
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.CourseGroup", b =>
                 {
-                    b.Property<int>("groupId")
+                    b.Property<int>("GroupId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("groupId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GroupId"));
 
-                    b.Property<string>("groupDescription")
+                    b.Property<string>("GroupDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("groupName")
+                    b.Property<string>("GroupName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.HasKey("groupId");
+                    b.HasKey("GroupId");
 
                     b.ToTable("CourseGroups");
                 });
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.CourseGroupMapping", b =>
                 {
-                    b.Property<int>("mappingId")
+                    b.Property<int>("MappingId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("mappingId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MappingId"));
 
-                    b.Property<int?>("courseGroupgroupId")
+                    b.Property<int?>("CourseGroupGroupId")
                         .HasColumnType("int");
 
-                    b.Property<int>("courseId")
+                    b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("groupId")
+                    b.Property<int>("GroupId")
                         .HasColumnType("int");
 
-                    b.HasKey("mappingId");
+                    b.HasKey("MappingId");
 
-                    b.HasIndex("courseGroupgroupId");
+                    b.HasIndex("CourseGroupGroupId");
 
-                    b.HasIndex("courseId");
+                    b.HasIndex("CourseId");
 
                     b.ToTable("CourseGroupMappings");
                 });
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Lesson", b =>
                 {
-                    b.Property<int>("lessionId")
+                    b.Property<int>("LessionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("lessionId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LessionId"));
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LessonDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LessonName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Quiz")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VideoUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("courseId")
-                        .HasColumnType("int");
+                    b.HasKey("LessionId");
 
-                    b.Property<string>("lessonDescription")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("lessonName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("quiz")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("lessionId");
-
-                    b.HasIndex("courseId");
+                    b.HasIndex("CourseId");
 
                     b.ToTable("Lessons");
                 });
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Question", b =>
                 {
-                    b.Property<int>("questionId")
+                    b.Property<int>("QuestionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("questionId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QuestionId"));
 
-                    b.Property<string>("questionContent")
+                    b.Property<string>("QuestionContent")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("testId")
+                    b.Property<int>("TestId")
                         .HasColumnType("int");
 
-                    b.HasKey("questionId");
+                    b.HasKey("QuestionId");
 
-                    b.HasIndex("testId");
+                    b.HasIndex("TestId");
 
                     b.ToTable("Questions");
                 });
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.StudentProgress", b =>
                 {
-                    b.Property<int>("progressId")
+                    b.Property<int>("ProgressId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("progressId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProgressId"));
 
-                    b.Property<int?>("LessonlessionId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("completed")
+                    b.Property<bool>("Completed")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("completedDate")
+                    b.Property<DateTime>("CompletedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("enrollmentId")
+                    b.Property<int>("EnrollmentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("lessionId")
+                    b.Property<int>("LessionId")
                         .HasColumnType("int");
 
-                    b.HasKey("progressId");
+                    b.Property<int?>("LessonLessionId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("LessonlessionId");
+                    b.HasKey("ProgressId");
 
-                    b.HasIndex("enrollmentId");
+                    b.HasIndex("EnrollmentId");
+
+                    b.HasIndex("LessonLessionId");
 
                     b.ToTable("StudentProgresses");
                 });
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Test", b =>
                 {
-                    b.Property<int>("testId")
+                    b.Property<int>("TestId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("testId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TestId"));
 
-                    b.Property<int>("courseId")
+                    b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<string>("testDescription")
+                    b.Property<string>("TestDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("testName")
+                    b.Property<string>("TestName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("testId");
+                    b.HasKey("TestId");
 
-                    b.HasIndex("courseId");
+                    b.HasIndex("CourseId");
 
                     b.ToTable("Tests");
                 });
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.TestScore", b =>
                 {
-                    b.Property<int>("scoreId")
+                    b.Property<int>("ScoreId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("scoreId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScoreId"));
 
-                    b.Property<int>("testId")
+                    b.Property<int>("TestId")
                         .HasColumnType("int");
 
-                    b.HasKey("scoreId");
+                    b.HasKey("ScoreId");
 
-                    b.HasIndex("testId");
+                    b.HasIndex("TestId");
 
                     b.ToTable("TestScores");
                 });
 
             modelBuilder.Entity("Enrollment", b =>
                 {
+                    b.HasOne("Web_day_tieng_Anh.Models.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Web_day_tieng_Anh.Models.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.HasOne("Web_day_tieng_Anh.Models.Course", "course")
-                        .WithMany()
-                        .HasForeignKey("courseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("ApplicationUser");
 
-                    b.Navigation("course");
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -593,7 +593,7 @@ namespace Web_day_tieng_Anh.Migrations
                 {
                     b.HasOne("Web_day_tieng_Anh.Models.Question", "Question")
                         .WithMany("Answers")
-                        .HasForeignKey("questionId")
+                        .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -603,8 +603,8 @@ namespace Web_day_tieng_Anh.Migrations
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Comment", b =>
                 {
                     b.HasOne("Web_day_tieng_Anh.Models.Lesson", "Lesson")
-                        .WithMany("comments")
-                        .HasForeignKey("LessonlessionId");
+                        .WithMany("Comments")
+                        .HasForeignKey("LessonLessionId");
 
                     b.Navigation("Lesson");
                 });
@@ -612,45 +612,45 @@ namespace Web_day_tieng_Anh.Migrations
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Course", b =>
                 {
                     b.HasOne("Web_day_tieng_Anh.Models.CourseGroup", "CourseGroups")
-                        .WithMany("courses")
-                        .HasForeignKey("CourseGroupsgroupId");
+                        .WithMany("Courses")
+                        .HasForeignKey("CourseGroupsGroupId");
 
                     b.Navigation("CourseGroups");
                 });
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.CourseGroupMapping", b =>
                 {
-                    b.HasOne("Web_day_tieng_Anh.Models.CourseGroup", "courseGroup")
+                    b.HasOne("Web_day_tieng_Anh.Models.CourseGroup", "CourseGroup")
                         .WithMany()
-                        .HasForeignKey("courseGroupgroupId");
+                        .HasForeignKey("CourseGroupGroupId");
 
-                    b.HasOne("Web_day_tieng_Anh.Models.Course", "courses")
+                    b.HasOne("Web_day_tieng_Anh.Models.Course", "Courses")
                         .WithMany()
-                        .HasForeignKey("courseId")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("courseGroup");
+                    b.Navigation("CourseGroup");
 
-                    b.Navigation("courses");
+                    b.Navigation("Courses");
                 });
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Lesson", b =>
                 {
-                    b.HasOne("Web_day_tieng_Anh.Models.Course", "course")
+                    b.HasOne("Web_day_tieng_Anh.Models.Course", "Vourse")
                         .WithMany("Lessons")
-                        .HasForeignKey("courseId")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("course");
+                    b.Navigation("Vourse");
                 });
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Question", b =>
                 {
                     b.HasOne("Web_day_tieng_Anh.Models.Test", "Test")
-                        .WithMany("question")
-                        .HasForeignKey("testId")
+                        .WithMany("Question")
+                        .HasForeignKey("TestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -659,37 +659,37 @@ namespace Web_day_tieng_Anh.Migrations
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.StudentProgress", b =>
                 {
-                    b.HasOne("Web_day_tieng_Anh.Models.Lesson", "Lesson")
-                        .WithMany("studentProgresses")
-                        .HasForeignKey("LessonlessionId");
-
-                    b.HasOne("Enrollment", "enrollments")
-                        .WithMany("studentsProgress")
-                        .HasForeignKey("enrollmentId")
+                    b.HasOne("Enrollment", "Enrollments")
+                        .WithMany("StudentsProgress")
+                        .HasForeignKey("EnrollmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Lesson");
+                    b.HasOne("Web_day_tieng_Anh.Models.Lesson", "Lesson")
+                        .WithMany("StudentProgresses")
+                        .HasForeignKey("LessonLessionId");
 
-                    b.Navigation("enrollments");
+                    b.Navigation("Enrollments");
+
+                    b.Navigation("Lesson");
                 });
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Test", b =>
                 {
-                    b.HasOne("Web_day_tieng_Anh.Models.Course", "course")
+                    b.HasOne("Web_day_tieng_Anh.Models.Course", "Course")
                         .WithMany("Tests")
-                        .HasForeignKey("courseId")
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("course");
+                    b.Navigation("Course");
                 });
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.TestScore", b =>
                 {
                     b.HasOne("Web_day_tieng_Anh.Models.Test", "Test")
                         .WithMany()
-                        .HasForeignKey("testId")
+                        .HasForeignKey("TestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -698,7 +698,7 @@ namespace Web_day_tieng_Anh.Migrations
 
             modelBuilder.Entity("Enrollment", b =>
                 {
-                    b.Navigation("studentsProgress");
+                    b.Navigation("StudentsProgress");
                 });
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Course", b =>
@@ -710,14 +710,14 @@ namespace Web_day_tieng_Anh.Migrations
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.CourseGroup", b =>
                 {
-                    b.Navigation("courses");
+                    b.Navigation("Courses");
                 });
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Lesson", b =>
                 {
-                    b.Navigation("comments");
+                    b.Navigation("Comments");
 
-                    b.Navigation("studentProgresses");
+                    b.Navigation("StudentProgresses");
                 });
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Question", b =>
@@ -727,7 +727,7 @@ namespace Web_day_tieng_Anh.Migrations
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Test", b =>
                 {
-                    b.Navigation("question");
+                    b.Navigation("Question");
                 });
 #pragma warning restore 612, 618
         }
