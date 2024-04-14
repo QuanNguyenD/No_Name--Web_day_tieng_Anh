@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Web_day_tieng_Anh</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+   
     <link href="~/img/favicon.png" rel="icon">
     <link href="~/img/apple-touch-icon.png" rel="apple-touch-icon">
 
@@ -18,7 +18,7 @@
     <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
     <link href="~/vendor/aos/aos.css" rel="stylesheet">
-
+    <link href="~/css/style.css" rel="stylesheet" />
     @* <link rel="stylesheet" href="~/Web_day_tieng_Anh.styles.css" asp-append-version="true" /> *@
 </head>
 <body>
@@ -31,11 +31,11 @@
 
             <nav id="navmenu" class="navmenu">
                     <ul>
-                        <li><a href="index.html" class="active">Home</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="courses.html">Courses</a></li>
-                        <li><a href="trainers.html">Trainers</a></li>
-                        <li><a href="events.html">Events</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="about">About</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Courses">Courses</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Trainers">Trainers</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Event">Event</a></li>
                         <li><a href="pricing.html">Pricing</a></li>
                         <li class="dropdown has-dropdown">
                             <a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down"></i></a>
