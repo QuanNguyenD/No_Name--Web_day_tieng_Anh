@@ -6,10 +6,12 @@ namespace Web_day_tieng_Anh.Models
         public int CourseId { get; set; }
         [Required, StringLength(100)]
         public string CourseName { get; set; }
-        [Range(0.01, 10000.00)]
+        
         public string CourseDescription { get; set; }
 
-        public int Level { get; set; } 
+        public int Level { get; set; }
+        
+        [Range(0.01, 10000.00)]
         public decimal Price { get; set; }   
 
         public int Ratings { get; set; }

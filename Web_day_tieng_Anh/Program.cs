@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Web_day_tieng_Anh.Models;
+using Web_day_tieng_Anh.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +24,7 @@ builder.Services.AddDistributedMemoryCache(); builder.Services.AddSession(option
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-//builder.Services.AddScoped<IProductRepository, EFProductRepository>();
+builder.Services.AddScoped<ICoursesRepository, EFCourseRepository>();
 //builder.Services.AddScoped<ICategoryRepository, EFCategoryRepository>();
 
 var app = builder.Build();
