@@ -36,8 +36,8 @@ namespace Web_day_tieng_Anh.Repository
 
         public async Task DeleteAsync(int id)
         {
-            var product = await _context.Lessons.FindAsync(id);
-            _context.Lessons.Remove(product);
+            var lesson = await _context.Lessons.FindAsync(id);
+            _context.Lessons.Remove(lesson);
             await _context.SaveChangesAsync();
         }
     }

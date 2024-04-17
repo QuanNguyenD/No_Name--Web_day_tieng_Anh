@@ -37,8 +37,8 @@ namespace Web_day_tieng_Anh.Repository
 
         public async Task DeleteAsync(int id)
         {
-            var product = await _context.Enrollments.FindAsync(id);
-            _context.Enrollments.Remove(product);
+            var enrollment = await _context.Enrollments.FindAsync(id);
+            _context.Enrollments.Remove(enrollment);
             await _context.SaveChangesAsync();
         }
     }
