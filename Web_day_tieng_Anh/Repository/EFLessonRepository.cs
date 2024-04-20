@@ -14,12 +14,12 @@ namespace Web_day_tieng_Anh.Repository
         public async Task<IEnumerable<Lesson>> GetAllAsync()
         {
             //return await _context.Lessons.ToListAsync();
-            return await _context.Lessons.Include(p => p.Vourse).ToListAsync();
+            return await _context.Lessons.Include(p => p.Course).ToListAsync();
         }
 
         public async Task<Lesson> GetByIdAsync(int id)
         {
-            return await _context.Lessons.Include(p => p.Vourse).FirstOrDefaultAsync(p => p.LessionId == id);
+            return await _context.Lessons.Include(p => p.Course).FirstOrDefaultAsync(p => p.LessionId == id);
             
         }
         public async Task AddAsync(Lesson lesson)

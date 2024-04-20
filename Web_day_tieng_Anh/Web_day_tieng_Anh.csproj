@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Admin\" />
+    <Folder Include="Areas\Lecturers\Controller\" />
+    <Folder Include="Areas\Lecturers\View\" />
+    <Folder Include="Areas\Student\" />
     <Folder Include="wwwroot\img\" />
   </ItemGroup>
 

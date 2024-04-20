@@ -80,7 +80,16 @@
             </nav>
 
             <a class="btn-getstarted" href="courses.html">Get Started</a>
-            <a class="btn-getstarted" href="Login.html">Login</a>
+            @* <a class="btn-getstarted" href="Login.html">Login</a> *@
+            @* <a class="btn-get-started"><partial name="_LoginPartial" /></a> *@
+            
+            
+            <a class="btn btn-outline-dark border-0" asp-area="Identity" asp-page="/Account/Login">
+                <i class="bi bi-person me-1"></i> Đăng nhập
+            </a>
+            <a class="btn btn-outline-dark border-0" asp-area="Identity" asp-page="/Account/Register">
+                <i class="bi bi-pencil me-1"></i> Đăng ký
+            </a>
         </div>
     </header>
     <div>

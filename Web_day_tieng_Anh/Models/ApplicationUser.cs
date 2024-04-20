@@ -8,6 +8,9 @@ namespace Web_day_tieng_Anh.Models
         [Required]
         public string FullName { get; set; }
         public int PhoneNumber { get; set; }
+
+        public string? ImageUrl { get; set; }
+
         public DateTime? DateOfBirth { get; set; }
     }
 }

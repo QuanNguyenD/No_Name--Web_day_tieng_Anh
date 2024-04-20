@@ -9,13 +9,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
-//builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-//{
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
 
-//})
-//    .AddDefaultUI().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
-//builder.Services.AddRazorPages();
-builder.Services.AddDefaultIdentity<IdentityUser>(option => option.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+})
+    .AddDefaultUI().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+builder.Services.AddRazorPages();
+
 
 builder.Services.AddDistributedMemoryCache(); builder.Services.AddSession(options =>
 {
