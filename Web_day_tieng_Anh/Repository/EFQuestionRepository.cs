@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Web_day_tieng_Anh.Models;
-
+using Web_day_tieng_Anh.Data;
 namespace Web_day_tieng_Anh.Repository
 {
     public class EFQuestionRepository : IQuestionRepository 

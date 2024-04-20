@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Web_day_tieng_Anh.Data;
 using Web_day_tieng_Anh.Models;
 
 namespace Web_day_tieng_Anh.Repository

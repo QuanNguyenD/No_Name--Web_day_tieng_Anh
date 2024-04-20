@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Web_day_tieng_Anh.Models;
 using Web_day_tieng_Anh.Repository;
-
+using Web_day_tieng_Anh.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
