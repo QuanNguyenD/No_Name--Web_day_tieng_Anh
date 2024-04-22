@@ -13,8 +13,25 @@
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             
-            <div class="form-floating">
-                <input type="type" name="name" value="" />
+            @* <div class="form-floating mb-3">
+                <input asp-for="Input.FullName" class="form-control" autocomplete="fullname" aria-required="true" />
+                <label asp-for="Input.FullName">FullName</label>
+                <span asp-validation-for="Input.FullName" class="text-danger"></span>
+                 <form id="checkoutForm" asp-action="Checkout" method="post" class="checkout-form">
+                                   
+                    <div class="form-group">
+                        <label for="Notes">Số điện thoại</label>
+                        <textarea id="Notes" name="Notes" class="form-control" required></textarea>
+                        <!-- Thêm một phần tử span để hiển thị thông báo lỗi -->
+                        <span id="phoneError" style="color: red; display: none;">Số điện thoại phải chứa 11 hoặc 12 chữ số và không có ký tự khác.</span>
+                    </div>
+                 </form>
+            </div> *@
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.FullName" class="form-control" autocomplete="fullname" aria-required="true" />
+                <label asp-for="Input.FullName">FullName</label>
+                <span asp-validation-for="Input.FullName" class="text-danger"></span>
             </div>
 
             <div class="form-floating mb-3">
@@ -76,3 +93,16 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+@* <script>
+    document.getElementById('checkoutForm').addEventListener('submit', function (event) {
+        var phoneNumber = document.getElementById('Notes').value.trim(); // Lấy nội dung nhập vào và loại bỏ các khoảng trắng ở đầu và cuối
+        var phoneNumberPattern = /^\d{11,12}$/; // Mẫu để kiểm tra nội dung nhập vào là 11 hoặc 12 chữ số
+
+        // Kiểm tra xem nội dung nhập vào có phải là số và có đủ 11 hoặc 12 chữ số không
+        if (!phoneNumberPattern.test(phoneNumber)) {
+            // Nếu không đạt yêu cầu, hiển thị thông báo lỗi và ngăn việc gửi form
+            document.getElementById('phoneError').style.display = 'inline';
+            event.preventDefault();
+        }
+    });
+</script> *@

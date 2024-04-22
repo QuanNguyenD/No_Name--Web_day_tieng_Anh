@@ -11,7 +11,7 @@
     <Folder Include="Areas\Lecturers\Controller\" />
     <Folder Include="Areas\Lecturers\View\" />
     <Folder Include="Areas\Student\" />
-    <Folder Include="wwwroot\img\" />
+    <Folder Include="wwwroot\img\imguser\" />
   </ItemGroup>
 
   <ItemGroup>
