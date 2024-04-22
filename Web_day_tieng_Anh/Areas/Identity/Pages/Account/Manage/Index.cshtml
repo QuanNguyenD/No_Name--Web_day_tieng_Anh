@@ -1,4 +1,5 @@
 ﻿@page
+@using System.Globalization
 @model IndexModel
 @{
     ViewData["Title"] = "Profile";
@@ -9,8 +10,28 @@
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row">
     <div class="col-md-6">
-        <form id="profile-form" method="post">
+        <form id="profile-form" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+            
+            @if (!string.IsNullOrEmpty(Model.Input.ImgUrlUser))
+            {
+                <div class="mb-3">
+                    <label asp-for="Input.ImageFile">User Image</label>
+                    @* <input type="file" asp-for="Input.ImageFile" class="form-control " id="imageInput" /> *@
+                    <img src="@Model.Input.ImgUrlUser" alt="User Image" class="img-thumbnail" id="previewImage" onclick="document.getElementById('imageInput').click();" />
+                </div>
+            }
+            else
+            {
+                <!-- Display default image if no image is uploaded -->
+                <div class="mb-3">
+                    <img src="~/img/imguser/UserImg.png" alt="Default Image" class="img-thumbnail" />
+                </div>
+            }
+
+            
+            
+
             <div class="form-floating mb-3">
                 <input asp-for="Input.FullName" class="form-control" placeholder="Please choose your name." />
                 <label asp-for="Input.FullName" class="form-label"></label>
@@ -26,11 +47,61 @@
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
 
             </div>
+
+
+
+            @* <div class="form-floating mb-3">
+                <label class="form-label">Date of Birth</label>
+                <div class="row">
+                    <div class="col">
+                        <select asp-for="Input.DateOfBirth.Year" class="form-select">
+                            @for (int i = DateTime.Now.Year; i >= DateTime.Now.Year - 100; i--)
+                            {
+                                <option value="@i">@i</option>
+                            }
+                        </select>
+
+                        <span asp-validation-for="Input.DateOfBirth.Year" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <select asp-for="Input.DateOfBirth.Month" class="form-select">
+                            @for (int i = 1; i <= 12; i++)
+                            {
+                                <option value="@i">@i</option>
+                            }
+                        </select>
+                        <span asp-validation-for="Input.DateOfBirth.Month" class="text-danger"></span>
+                    </div>
+                    <div class="col">
+                        <select asp-for="Input.DateOfBirth.Day" class="form-select">
+                            @for (int i = 1; i <= 31; i++)
+                            {
+                                <option value="@i">@i</option>
+                            }
+                        </select>
+                        <span asp-validation-for="Input.DateOfBirth.Day" class="text-danger"></span>
+                    </div>
+                </div>
+            </div> *@
+            <div class="form-floating mb-3">
+                <input asp-for="Input.DateOfBirth" class="form-control" placeholder="Please choose your date of birth." min="1900-01-01" />
+                <label asp-for="Input.DateOfBirth" class="form-label">Date of Birth</label>
+                <span asp-validation-for="Input.DateOfBirth" class="text-danger"></span>
+            </div>
+            
+
+
+
             <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
         </form>
     </div>
 </div>
 
+
+<script src="~/js/ManageIndex.js"></script>
 @section Scripts {
+    
     <partial name="_ValidationScriptsPartial" />
 }
+
+

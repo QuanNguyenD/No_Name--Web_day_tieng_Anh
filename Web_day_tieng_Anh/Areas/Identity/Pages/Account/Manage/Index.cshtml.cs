@@ -49,7 +49,13 @@ namespace Web_day_tieng_Anh.Areas.Identity.Pages.Account.Manage
 
             [Display(Name = "FullName")]
             public string FullName {  get; set; }
+
+            public IFormFile ImageFile { get; set; } // Property for image upload
             public string ImgUrlUser { get; set; }
+            [Display(Name = "Date of Birth")]
+            [DataType(DataType.Date)]
+            public DateTime DateOfBirth { get; set; }
+
         }
         
 
@@ -62,12 +68,16 @@ namespace Web_day_tieng_Anh.Areas.Identity.Pages.Account.Manage
             
 
             Username = userName;
-
             Input = new InputModel
             {
                 PhoneNumber = user.PhoneNumber,
                 //PhoneNumber = phoneNumber,
-                FullName = user.FullName
+                
+                FullName = user.FullName,
+                ImgUrlUser = user.ImageUrl,
+                DateOfBirth = (DateTime)user.DateOfBirth
+
+
             };
         }
 
@@ -82,9 +92,18 @@ namespace Web_day_tieng_Anh.Areas.Identity.Pages.Account.Manage
             await LoadAsync(user);
             return Page();
         }
-
+        private async Task<string> SaveImage(IFormFile imageUrl)
+        {
+            var savePath = Path.Combine("wwwroot/img", imageUrl.FileName);
+            using (var fileStream = new FileStream(savePath, FileMode.Create))
+            {
+                await imageUrl.CopyToAsync(fileStream);
+            }
+            return "/img/" + imageUrl.FileName;
+        }
         public async Task<IActionResult> OnPostAsync()
         {
+            ModelState.Remove("ImgUrlUser");
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
@@ -96,25 +115,25 @@ namespace Web_day_tieng_Anh.Areas.Identity.Pages.Account.Manage
                 await LoadAsync(user);
                 return Page();
             }
+            if (Input.ImageFile != null)
+            {
+                // Save the uploaded image and update the user's ImgUrlUser property
+                user.ImageUrl = await SaveImage(Input.ImageFile);
+            }
             if (Input.PhoneNumber != user.PhoneNumber)
             {
                 user.PhoneNumber = Input.PhoneNumber;
             }
-            //var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            //if (Input.PhoneNumber != phoneNumber)
-            //{
-
-            //    var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-            //    if (!setPhoneResult.Succeeded)
-            //    {
-            //        var userId = await _userManager.GetUserIdAsync(user);
-            //        throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
-            //    }
-            //}
+            
             if (Input.FullName != user.FullName)
             {
                 user.FullName = Input.FullName;
             }
+            if (Input.DateOfBirth != user.DateOfBirth)
+            {
+                user.DateOfBirth = Input.DateOfBirth;
+            }
+
             await _userManager.UpdateAsync(user);
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
