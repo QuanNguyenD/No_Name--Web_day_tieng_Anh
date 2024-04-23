@@ -75,7 +75,8 @@ namespace Web_day_tieng_Anh.Areas.Identity.Pages.Account.Manage
                 
                 FullName = user.FullName,
                 ImgUrlUser = user.ImageUrl,
-                DateOfBirth = (DateTime)user.DateOfBirth
+                //DateOfBirth = (DateTime)user.DateOfBirth 
+                DateOfBirth = (DateTime)(user.DateOfBirth != null ? user.DateOfBirth : DateTime.Today)
 
 
             };

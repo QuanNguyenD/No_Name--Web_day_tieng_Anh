@@ -17,7 +17,7 @@
             {
                 <div class="mb-3">
                     <label asp-for="Input.ImageFile">User Image</label>
-                    @* <input type="file" asp-for="Input.ImageFile" class="form-control " id="imageInput" /> *@
+                    <input type="file" asp-for="Input.ImageFile" class="form-control " id="imageInput" style="display: none;"/>
                     <img src="@Model.Input.ImgUrlUser" alt="User Image" class="img-thumbnail" id="previewImage" onclick="document.getElementById('imageInput').click();" />
                 </div>
             }
@@ -88,6 +88,7 @@
                 <label asp-for="Input.DateOfBirth" class="form-label">Date of Birth</label>
                 <span asp-validation-for="Input.DateOfBirth" class="text-danger"></span>
             </div>
+           
             
 
 
@@ -97,11 +98,12 @@
     </div>
 </div>
 
-
 <script src="~/js/ManageIndex.js"></script>
+
 @section Scripts {
     
     <partial name="_ValidationScriptsPartial" />
+    
 }
 
 

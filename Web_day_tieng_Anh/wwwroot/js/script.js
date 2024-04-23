@@ -127,4 +127,10 @@
     }
     window.addEventListener('load', initSwiper);
 
+
+    
+
 })();
+
+
+
