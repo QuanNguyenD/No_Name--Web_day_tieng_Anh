@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Web_day_tieng_Anh.Models;
 using Web_day_tieng_Anh.Repository;
 
-namespace Web_day_tieng_Anh.Controllers
+namespace Web_day_tieng_Anh.Areas.Students.Controllers
 {
-    [Area("Student")]
+    [Area("Students")]
     [Authorize(Roles = "Student")]
     public class CoursesController : Controller
     {
@@ -24,22 +24,16 @@ namespace Web_day_tieng_Anh.Controllers
             return View(courses);
         }
 
-        // Hiển thị form thêm danh mục mới
-        public IActionResult Add()
+        // Hiển thị thông tin chi tiết
+        public async Task<IActionResult> Display(int id)
         {
-            return View();
-        }
-
-        // Xử lý thêm danh mục mới
-        [HttpPost]
-        public async Task<IActionResult> Add(Course course)
-        {
-            if (ModelState.IsValid)
+            var course = await _coursesRepository.GetByIdAsync(id);
+            if (course == null)
             {
-                await _coursesRepository.AddAsync(course);
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
             return View(course);
         }
+
     }
 }

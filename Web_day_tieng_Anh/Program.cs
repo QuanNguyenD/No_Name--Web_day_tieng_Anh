@@ -30,7 +30,10 @@ builder.Services.AddDistributedMemoryCache(); builder.Services.AddSession(option
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddScoped<ICoursesRepository, EFCourseRepository>();
-//builder.Services.AddScoped<ICategoryRepository, EFCategoryRepository>();
+builder.Services.AddScoped<ILessonRepository, EFLessonRepository>();
+builder.Services.AddScoped<ITestRepository,EFTestRepository>();
+builder.Services.AddScoped<IQuestionRepository, EFQuestionRepository>();
+builder.Services.AddScoped<IAnswerRepository, EFAnswerRepository>();
 
 var app = builder.Build();
 

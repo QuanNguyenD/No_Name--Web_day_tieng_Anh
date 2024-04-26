@@ -8,12 +8,11 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\" />
-    <Folder Include="Areas\Lecturers\Controller\" />
     <Folder Include="Areas\Lecturers\View\" />
-    <Folder Include="Areas\Student\Views\Lessons\" />
-    <Folder Include="Areas\Student\Views\Answers\" />
-    <Folder Include="Areas\Student\Views\Tests\" />
-    <Folder Include="Areas\Student\Views\Questions\" />
+    <Folder Include="Areas\Students\Views\Lessons\" />
+    <Folder Include="Areas\Students\Views\Answers\" />
+    <Folder Include="Areas\Students\Views\Tests\" />
+    <Folder Include="Areas\Students\Views\Questions\" />
     <Folder Include="wwwroot\img\imguser\" />
   </ItemGroup>
 

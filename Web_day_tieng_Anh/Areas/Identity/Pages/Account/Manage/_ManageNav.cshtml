@@ -16,7 +16,7 @@
     @if (User.IsInRole("Student"))
     {
        @* <li class="nav-item"><a class="nav-link @ManageNavPages.StudentCourseNavClass(ViewContext)" id="student-course" asp-area="Student" asp-controller="Courses">My Courses</a></li> *@
-        <a id="manage" class="nav-link" asp-area="Student" asp-controller="Courses" asp-action="Index" title="Manage">Admin</a>
+        <a id="manage" class="nav-link" asp-area="Students" asp-controller="Courses" asp-action="Index" title="Manage">Admin</a>
     }
     else
     {
