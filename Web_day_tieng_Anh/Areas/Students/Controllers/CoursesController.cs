@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Web_day_tieng_Anh.Models;
 using Web_day_tieng_Anh.Repository;
 
 namespace Web_day_tieng_Anh.Areas.Students.Controllers

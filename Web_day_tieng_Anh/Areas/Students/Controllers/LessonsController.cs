@@ -11,10 +11,11 @@ namespace Web_day_tieng_Anh.Areas.Students.Controllers
         private readonly ICoursesRepository _coursesRepository;
         private readonly ILessonRepository _lessonRepository;
 
-        public LessonsController(ILessonRepository lessonRepository, ICoursesRepository coursesRepository)
+        public LessonsController(ICoursesRepository coursesRepository,ILessonRepository lessonRepository)
         {
-            _lessonRepository = lessonRepository;
             _coursesRepository = coursesRepository;
+            _lessonRepository = lessonRepository;
+           
         }
 
         // Hiển thị danh sách danh mục
