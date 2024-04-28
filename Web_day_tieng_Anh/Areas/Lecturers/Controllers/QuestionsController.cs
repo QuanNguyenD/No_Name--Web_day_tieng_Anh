@@ -1,43 +1,48 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Frozen;
 using Web_day_tieng_Anh.Models;
 using Web_day_tieng_Anh.Repository;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
 {
     [Area("Lecturers")]
     [Authorize(Roles = "Lecturers")]
-    public class TestsController : Controller
+    public class QuestionsController : Controller
     {
         private readonly ICoursesRepository _coursesRepository;
         private readonly ILessonRepository _lessonRepository;
         private readonly ITestRepository _testRepository;
+        private readonly IQuestionRepository _questionRepository;
 
-        public TestsController(ICoursesRepository coursesRepository, ILessonRepository lessonRepository, ITestRepository testRepository)
+        public QuestionsController(ICoursesRepository coursesRepository, ILessonRepository lessonRepository, ITestRepository testRepository, IQuestionRepository questionRepository)
         {
             _coursesRepository = coursesRepository;
             _lessonRepository = lessonRepository;
             _testRepository = testRepository;
+            _questionRepository = questionRepository;
         }
+
         public async Task<IActionResult> Index()
         {
-            var tests = await _testRepository.GetAllAsync();
-            return View(tests);
+            var questions = await _questionRepository.GetAllAsync();
+            return View(questions);
         }
         public async Task<IActionResult> Display(int id)
         {
-            var test = await _testRepository.GetByIdAsync(id);
-            if (test == null)
+            var question = await _questionRepository.GetByIdAsync(id);
+            if (question == null)
             {
                 return NotFound();
             }
-            return View(test);
+            return View(question);
         }
         public async Task<IActionResult> Add()
         {
-            var course = await _coursesRepository.GetAllAsync();
-            ViewBag.Course = new SelectList(course, "CourseId", "CourseName");
+            var test = await _testRepository.GetAllAsync();
+            ViewBag.Test = new SelectList(test, "TestId", "TestName");
 
             return View();
         }
@@ -45,73 +50,73 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
 
         // Xử lý thêm sản phẩm mới
         [HttpPost]
-        public async Task<IActionResult> Add(Test test)
+        public async Task<IActionResult> Add(Question question)
         {
             if (ModelState.IsValid)
             {
 
 
-                await _testRepository.AddAsync(test);
+                await _questionRepository.AddAsync(question);
                 return RedirectToAction(nameof(Index));
             }
             // Nếu ModelState không hợp lệ, hiển thị form với dữ liệu đã nhập
-            var course = await _coursesRepository.GetAllAsync();
-            ViewBag.Course = new SelectList(course, "CourseId", "CourseName");
-            return View(course);
+            var test = await _testRepository.GetAllAsync();
+            ViewBag.Test = new SelectList(test, "TestId", "TestName", question.TestId);
+            return View(test);
         }
         public async Task<IActionResult> Update(int id)
         {
-            var test = await _testRepository.GetByIdAsync(id);
-            if (test == null)
+            var question = await _questionRepository.GetByIdAsync(id);
+            if (question == null)
             {
                 return NotFound();
             }
-            var courses = await _coursesRepository.GetAllAsync();
-            ViewBag.Courses = new SelectList(courses, "CourseId", "CourseName", test.CourseId);
+            var test = await _testRepository.GetAllAsync();
+            ViewBag.Test = new SelectList(test, "TestId", "TestName");
             return View(test);
         }
         // Xử lý cập nhật sản phẩm
         [HttpPost]
-        public async Task<IActionResult> Update(int id, Test test)
+        public async Task<IActionResult> Update(int id, Question question)
         {
 
-            if (id != test.TestId)
+            if (id != question.TestId)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                var existingTests = await _testRepository.GetByIdAsync(id); // Giả định có phương thức GetByIdAsync
+                var existingQuestion = await _questionRepository.GetByIdAsync(id); // Giả định có phương thức GetByIdAsync
 
 
 
 
                 // Cập nhật các thông tin khác 
 
-                existingTests.TestDescription = test.TestDescription;
-                existingTests.TestName = test.TestName;
+                existingQuestion.QuestionContent = question.QuestionContent;
+                
 
 
 
-                await _testRepository.UpdateAsync(existingTests);
+                await _questionRepository.UpdateAsync(existingQuestion);
                 return RedirectToAction(nameof(Index));
             }
-            var courses = await _coursesRepository.GetAllAsync();
-            ViewBag.Courses = new SelectList(courses, "CourseId", "CourseName");
-            return View(test);
+            var test = await _testRepository.GetAllAsync();
+            ViewBag.Test = new SelectList(test, "CourseId", "CourseName", question.TestId);
+            return View(question);
         }
 
 
         // Hiển thị form xác nhận xóa sản phẩm
         public async Task<IActionResult> Delete(int id)
         {
-            var test = await _testRepository.GetByIdAsync(id);
-            if (test == null)
+            var question = await _questionRepository.GetByIdAsync(id);
+            if (question == null)
             {
                 return NotFound();
             }
-            return View(test);
+            return View(question);
         }
 
 
@@ -119,7 +124,7 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _testRepository.DeleteAsync(id);
+            await _questionRepository.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
     }

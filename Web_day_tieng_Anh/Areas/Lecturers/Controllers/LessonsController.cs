@@ -101,7 +101,7 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
                 return RedirectToAction(nameof(Index));
             }
             var courses = await _coursesRepository.GetAllAsync();
-            ViewBag.Courses = new SelectList(courses, "CourseId", "CourseName", lesson.CourseId);
+            ViewBag.Courses = new SelectList(courses, "CourseId", "CourseName");
             return View(lesson);
         }
 
