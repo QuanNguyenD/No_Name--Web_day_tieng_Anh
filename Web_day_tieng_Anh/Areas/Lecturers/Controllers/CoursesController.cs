@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Web_day_tieng_Anh.Data;
 using Web_day_tieng_Anh.Models;
 using Web_day_tieng_Anh.Repository;
 
@@ -10,7 +12,8 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
     public class CoursesController : Controller
     {
         private readonly ICoursesRepository _coursesRepository;
-
+        private readonly ApplicationDbContext _context;
+       
         public CoursesController(ICoursesRepository coursesRepository)
         {
             _coursesRepository = coursesRepository;
@@ -27,10 +30,21 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
         public async Task<IActionResult> Display(int id)
         {
             var course = await _coursesRepository.GetByIdAsync(id);
+            
+
+            
+            
             if (course == null)
             {
                 return NotFound();
             }
+            var lessons = _context.Lessons.Where(l => l.CourseId == id).ToList();
+            //var viewModel = new Course
+            //{
+            //    Course = course,
+            //    Lessons = lessons
+            //};
+
             return View(course);
         }
         public IActionResult Add()

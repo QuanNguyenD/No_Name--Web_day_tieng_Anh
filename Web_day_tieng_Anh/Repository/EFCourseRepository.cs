@@ -18,7 +18,8 @@ namespace Web_day_tieng_Anh.Repository
         }
         public async Task<Course> GetByIdAsync(int id)
         {
-            return await _context.Courses.FindAsync(id);
+            //return await _context.Courses.FindAsync(id);
+            return _context.Courses.FirstOrDefault(c => c.CourseId == id);
 
         }
 

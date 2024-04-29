@@ -49,11 +49,10 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Ratings)
                 </td>
-                <td>
-                    @* <a asp-action="Edit" asp-route-id="@item.CourseId">Edit</a> | *@
-                    <a asp-action="Details" asp-route-id="@item.CourseId">Details</a>
-                    @* <a asp-action="Delete" asp-route-id="@item.CourseId">Delete</a> *@
-                </td>
+                <th>
+                    <a href="@Url.Action("Display", "Courses", new { id = item.CourseId })">View Details</a>
+                </th>
+                
             </tr>
         }
     </tbody>

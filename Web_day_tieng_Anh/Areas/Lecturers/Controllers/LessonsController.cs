@@ -27,13 +27,15 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
             var courses = await _lessonRepository.GetAllAsync();
             return View(courses);
         }
+
         //public IActionResult Index(int courseId)
         //{
         //    // Retrieve lessons associated with the specified courseId
-        //    var lessons = _lessonRepository.Lessons.Where(l => l.CourseId == courseId).ToList();
+        //    var lessons = _lessonRepository.GetLessonsByCourseId(courseId);
 
         //    return View(lessons);
         //}
+        
 
         // Hiển thị thông tin chi tiết
         public async Task<IActionResult> Display(int id)

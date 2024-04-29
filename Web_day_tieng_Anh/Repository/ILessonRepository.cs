@@ -9,5 +9,6 @@ namespace Web_day_tieng_Anh.Repository
         Task AddAsync(Lesson lesson);
         Task UpdateAsync(Lesson lesson);
         Task DeleteAsync(int id);
+        IEnumerable<Lesson> GetLessonsByCourseId(int courseId);
     }
 }

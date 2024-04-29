@@ -40,5 +40,9 @@ namespace Web_day_tieng_Anh.Repository
             _context.Lessons.Remove(lesson);
             await _context.SaveChangesAsync();
         }
+        public IEnumerable<Lesson> GetLessonsByCourseId(int courseId)
+        {
+            return _context.Lessons.Where(l => l.CourseId == courseId).ToList();
+        }
     }
 }
