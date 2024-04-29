@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Web_day_tieng_Anh.Models;
 using Web_day_tieng_Anh.Repository;
 
@@ -20,12 +21,19 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
 
         }
 
-        // Hiển thị danh sách danh mục
+        //Hiển thị danh sách danh mục
         public async Task<IActionResult> Index()
         {
             var courses = await _lessonRepository.GetAllAsync();
             return View(courses);
         }
+        //public IActionResult Index(int courseId)
+        //{
+        //    // Retrieve lessons associated with the specified courseId
+        //    var lessons = _lessonRepository.Lessons.Where(l => l.CourseId == courseId).ToList();
+
+        //    return View(lessons);
+        //}
 
         // Hiển thị thông tin chi tiết
         public async Task<IActionResult> Display(int id)
