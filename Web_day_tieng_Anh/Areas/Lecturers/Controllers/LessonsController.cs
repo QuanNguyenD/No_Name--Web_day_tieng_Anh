@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Web_day_tieng_Anh.Data;
 using Web_day_tieng_Anh.Models;
 using Web_day_tieng_Anh.Repository;
 
@@ -13,29 +14,37 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
     {
         private readonly ICoursesRepository _coursesRepository;
         private readonly ILessonRepository _lessonRepository;
+        private readonly ApplicationDbContext _context;
 
-        public LessonsController(ICoursesRepository coursesRepository, ILessonRepository lessonRepository)
+        public LessonsController(ICoursesRepository coursesRepository, ILessonRepository lessonRepository, ApplicationDbContext context)
         {
             _coursesRepository = coursesRepository;
             _lessonRepository = lessonRepository;
+            _context = context;
 
         }
 
-        //Hiển thị danh sách danh mục
-        public async Task<IActionResult> Index()
-        {
-            var courses = await _lessonRepository.GetAllAsync();
-            return View(courses);
-        }
-
-        //public IActionResult Index(int courseId)
-        //{
-        //    // Retrieve lessons associated with the specified courseId
-        //    var lessons = _lessonRepository.GetLessonsByCourseId(courseId);
-
-        //    return View(lessons);
-        //}
         
+
+        public async Task<IActionResult> Index(int courseId)
+        {
+            //var lessons1 = await _lessonRepository.GetAllAsync();
+            // Retrieve lessons associated with the specified courseId
+            var lessons = _context.Lessons.Where(l => l.CourseId == courseId).Include(p => p.Course).ToList();
+
+
+            if (lessons == null)
+            {
+                lessons = new List<Lesson>();
+            }
+            var viewmodel = new Course
+            {
+                Lessons = lessons,
+            };
+
+            return View(lessons);
+        }
+
 
         // Hiển thị thông tin chi tiết
         public async Task<IActionResult> Display(int id)

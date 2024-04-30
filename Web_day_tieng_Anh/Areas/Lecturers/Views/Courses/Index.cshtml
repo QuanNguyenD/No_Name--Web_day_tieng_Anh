@@ -49,8 +49,14 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Ratings)
                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseId)
+                </td>
                 <th>
-                    <a href="@Url.Action("Display", "Courses", new { id = item.CourseId })">View Details</a>
+                   @*  <a href="@Url.Action("Display", "Courses", new { id = item.CourseId })">View Details</a> *@
+                    @*<a href="@Url.Action("Index", "Lessons", new { id = item.CourseId })">View Details</a>*@
+                    
+                    <a asp-controller="Lessons" asp-action="Index" asp-route-courseId="@item.CourseId">View All Lessons</a>
                 </th>
                 
             </tr>

@@ -14,9 +14,10 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
         private readonly ICoursesRepository _coursesRepository;
         private readonly ApplicationDbContext _context;
        
-        public CoursesController(ICoursesRepository coursesRepository)
+        public CoursesController(ICoursesRepository coursesRepository, ApplicationDbContext context)
         {
             _coursesRepository = coursesRepository;
+            _context = context; 
         }
 
         // Hiển thị danh sách danh mục
@@ -39,13 +40,19 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
                 return NotFound();
             }
             var lessons = _context.Lessons.Where(l => l.CourseId == id).ToList();
-            //var viewModel = new Course
-            //{
-            //    Course = course,
-            //    Lessons = lessons
-            //};
+            if (lessons == null)
+            {
+                lessons = new List<Lesson>();
+            }
+            var viewmodel = new Course
+            {
+                Lessons = lessons,
+            };
 
-            return View(course);
+            return View(viewmodel);
+
+
+            //return View(course);
         }
         public IActionResult Add()
         {

@@ -1,5 +1,5 @@
-﻿@model Web_day_tieng_Anh.Models.Course
-
+﻿@* @model Web_day_tieng_Anh.Models.Course
+ *@
 @{
     ViewData["Title"] = "Display";
 }
@@ -9,7 +9,14 @@
 <div>
     @foreach (var lesson in Model.Lessons)
     {
-        <li>@lesson.LessonName</li>
+        @if (lesson != null)
+        {
+            <div>
+                <h4>@lesson.LessonName</h4>
+                <p>@lesson.LessonDescription</p>
+                <p>Difficulty Level: @lesson.Comments</p>
+            </div>
+        }
     }
 </div>
 <div>
