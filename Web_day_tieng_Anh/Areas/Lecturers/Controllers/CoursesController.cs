@@ -39,20 +39,20 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
             {
                 return NotFound();
             }
-            var lessons = _context.Lessons.Where(l => l.CourseId == id).ToList();
-            if (lessons == null)
-            {
-                lessons = new List<Lesson>();
-            }
-            var viewmodel = new Course
-            {
-                Lessons = lessons,
-            };
+            //var lessons = _context.Lessons.Where(l => l.CourseId == id).ToList();
+            //if (lessons == null)
+            //{
+            //    lessons = new List<Lesson>();
+            //}
+            //var viewmodel = new Course
+            //{
+            //    Lessons = lessons,
+            //};
 
-            return View(viewmodel);
+            //return View(viewmodel);
 
 
-            //return View(course);
+            return View(course);
         }
         public IActionResult Add()
         {

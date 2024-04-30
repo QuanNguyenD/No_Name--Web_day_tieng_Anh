@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Web_day_tieng_Anh.Models.Course>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="~/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
 @{
     ViewData["Title"] = "Index";
 }
@@ -55,8 +56,9 @@
                 <th>
                    @*  <a href="@Url.Action("Display", "Courses", new { id = item.CourseId })">View Details</a> *@
                     @*<a href="@Url.Action("Index", "Lessons", new { id = item.CourseId })">View Details</a>*@
-                    
-                    <a asp-controller="Lessons" asp-action="Index" asp-route-courseId="@item.CourseId">View All Lessons</a>
+
+                    <a asp-controller="Lessons" asp-action="Index" asp-route-courseId="@item.CourseId" class="btn btn-primary mx-2">View All Lessons</a>
+                    <a asp-action="Display" asp-route-id="@item.CourseId"><i class="bi bi-three-dots" title="Details"></i></a>
                 </th>
                 
             </tr>
