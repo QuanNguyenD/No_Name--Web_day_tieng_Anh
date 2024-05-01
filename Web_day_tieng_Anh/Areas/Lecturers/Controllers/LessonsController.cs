@@ -43,9 +43,10 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
             };
 
             return View(lessons);
+            
         }
 
-
+        
         // Hiển thị thông tin chi tiết
         public async Task<IActionResult> Display(int id)
         {
@@ -58,28 +59,59 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
         }
         public async Task<IActionResult> Add()
         {
+            
             var course = await _coursesRepository.GetAllAsync();
             ViewBag.Course = new SelectList(course, "CourseId", "CourseName");
             
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Add(int courseId)
+        {
+            // Get the Course object corresponding to the courseId
+            var course = await _coursesRepository.GetByIdAsync(courseId);
 
+            // If the course doesn't exist, return a 404 Not Found response
+            if (course == null)
+            {
+                return NotFound();
+            }
+
+            //// Pass the courseId and other necessary data to the view
+            ////var lessonViewModel = new Lesson
+            ////{
+            ////    CourseId = course.CourseId,
+            ////     // Assuming you want to display the course name in the view
+            ////                                   // You can include other properties from the course as needed
+            ////};
+
+            //return View(lessonViewModel);
+            ViewData["CourseId"] = courseId;
+            return View();
+        }
         // Xử lý thêm sản phẩm mới
         [HttpPost]
         public async Task<IActionResult> Add(Lesson lesson)
         {
+            
             if (ModelState.IsValid)
             {
                 
                 
                 await _lessonRepository.AddAsync(lesson);
-                return RedirectToAction(nameof(Index));
+                var lessons = await _context.Lessons
+             .Where(l => l.CourseId == lesson.CourseId)
+             .ToListAsync();
+                //return RedirectToAction(nameof(Index));
+                return View("Index", lessons);
             }
             // Nếu ModelState không hợp lệ, hiển thị form với dữ liệu đã nhập
             var course = await _coursesRepository.GetAllAsync();
+           
+            
             ViewBag.Course = new SelectList(course, "CourseId", "CourseName");
-            return View(course);
+            return View(lesson);
         }
         public async Task<IActionResult> Update(int id)
         {
@@ -137,12 +169,19 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
         }
 
 
-        // Xử lý xóa sản phẩm
+        // Xử lý xóa bài học
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var lesson = await _lessonRepository.GetByIdAsync(id);
+            if (lesson == null)
+            {
+                return NotFound();
+            }
+            var courseId = lesson.CourseId;
             await _lessonRepository.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
+
+            return RedirectToAction("Index", "Lessons", new { courseId });
         }
     }
 }
