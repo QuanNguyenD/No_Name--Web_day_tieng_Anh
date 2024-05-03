@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Web_day_tieng_Anh.Data;
 using Web_day_tieng_Anh.Models;
 using Web_day_tieng_Anh.Repository;
 
@@ -13,12 +14,14 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
         private readonly ICoursesRepository _coursesRepository;
         private readonly ILessonRepository _lessonRepository;
         private readonly ITestRepository _testRepository;
+        private readonly ApplicationDbContext _context;
 
-        public TestsController(ICoursesRepository coursesRepository, ILessonRepository lessonRepository, ITestRepository testRepository)
+        public TestsController(ICoursesRepository coursesRepository, ILessonRepository lessonRepository, ITestRepository testRepository, ApplicationDbContext context)
         {
             _coursesRepository = coursesRepository;
             _lessonRepository = lessonRepository;
             _testRepository = testRepository;
+            _context = context;
         }
         public async Task<IActionResult> Index()
         {

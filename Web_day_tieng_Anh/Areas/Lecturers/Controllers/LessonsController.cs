@@ -128,7 +128,8 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(int id, Lesson lesson)
         {
-            
+            var lessonUp = await _lessonRepository.GetByIdAsync(id);
+            var courseId = lessonUp.CourseId;
             if (id != lesson.LessionId)
             {
                 return NotFound();
@@ -149,11 +150,14 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
 
 
                 await _lessonRepository.UpdateAsync(existingLessons);
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Lessons", new { courseId });
             }
             var courses = await _coursesRepository.GetAllAsync();
+            
             ViewBag.Courses = new SelectList(courses, "CourseId", "CourseName");
-            return View(lesson);
+            //return View(lesson);
+            return RedirectToAction("Index", "Lessons", new { courseId });
         }
 
 

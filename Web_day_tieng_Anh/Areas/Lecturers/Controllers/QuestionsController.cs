@@ -48,7 +48,7 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
         }
 
 
-        // Xử lý thêm sản phẩm mới
+        // Xử lý thêm  mới
         [HttpPost]
         public async Task<IActionResult> Add(Question question)
         {

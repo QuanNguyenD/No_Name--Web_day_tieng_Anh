@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\" />
-    <Folder Include="Areas\Lecturers\Views\Questions\" />
     <Folder Include="Areas\Students\Views\Lessons\" />
     <Folder Include="Areas\Students\Views\Answers\" />
     <Folder Include="Areas\Students\Views\Tests\" />
