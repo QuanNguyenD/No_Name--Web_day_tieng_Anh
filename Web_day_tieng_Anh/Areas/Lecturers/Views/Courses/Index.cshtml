@@ -57,7 +57,7 @@
                    @*  <a href="@Url.Action("Display", "Courses", new { id = item.CourseId })">View Details</a> *@
                     @*<a href="@Url.Action("Index", "Lessons", new { id = item.CourseId })">View Details</a>*@
 
-                    <a asp-controller="Lessons" asp-action="Index" asp-route-courseId="@item.CourseId" class="btn btn-primary mx-2">View All Lessons</a>
+                    
                     <a asp-action="Display" asp-route-id="@item.CourseId"><i class="bi bi-three-dots" title="Details"></i></a>
                     
                 </th>

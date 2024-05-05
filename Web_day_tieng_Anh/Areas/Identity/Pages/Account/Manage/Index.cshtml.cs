@@ -110,7 +110,7 @@ namespace Web_day_tieng_Anh.Areas.Identity.Pages.Account.Manage
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-
+            
             if (!ModelState.IsValid)
             {
                 await LoadAsync(user);
@@ -121,6 +121,13 @@ namespace Web_day_tieng_Anh.Areas.Identity.Pages.Account.Manage
                 // Save the uploaded image and update the user's ImgUrlUser property
                 user.ImageUrl = await SaveImage(Input.ImageFile);
             }
+            else if (string.IsNullOrEmpty(user.ImageUrl))
+            {
+                // If no image is uploaded and ImgUrlUser is null or empty, set it to the default image URL
+                user.ImageUrl = "/img/UserImg.png";
+            }
+
+
             if (Input.PhoneNumber != user.PhoneNumber)
             {
                 user.PhoneNumber = Input.PhoneNumber;

@@ -10,32 +10,32 @@
     @* <a asp-controller="Questions" asp-action="Add" asp-route-courseId="@Model.FirstOrDefault()?.CourseId" class="btn btn-primary mx-2">Add</a> *@
 </p>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.QuestionContent)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Test)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
+    
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.QuestionContent)
             </td>
+            
             <td>
-                @Html.DisplayFor(modelItem => item.Test.TestId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.QuestionId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.QuestionId">Details</a> |
+                <a asp-action="Update" asp-route-id="@item.QuestionId">Edit</a> |
+                <a asp-action="Display" asp-route-id="@item.QuestionId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.QuestionId">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+@* <a asp-controller="Tests" asp-action="Index" asp-route-testId="">Back to list</a> *@
+@section Scripts {
+    <script>
+        // Get all elements with class "serial-number"
+        var serialNumbers = document.querySelectorAll('.serial-number');
+
+        // Loop through each element and set its text content to the corresponding index + 1
+        serialNumbers.forEach(function (element, index) {
+            element.textContent = index + 1;
+        });
+    </script>
+}

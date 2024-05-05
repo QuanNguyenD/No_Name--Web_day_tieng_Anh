@@ -1,7 +1,7 @@
-﻿@model Web_day_tieng_Anh.Models.Lesson
+﻿@model Web_day_tieng_Anh.Models.Test
 
 @{
-    ViewData["Title"] = "Add";
+    ViewData["Title"] = "Update";
 }
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -20,45 +20,36 @@
         })
     </script>
 </head>
-<h1>Add</h1>
+<h1>Update</h1>
 
-<h4>Lesson</h4>
+<h4>Test</h4>
 <hr />
 <div class="row">
-    <div class="col-md-10">
-        <form asp-action="Add">
+    <div class="col-md-8">
+        <form asp-action="Update">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="CourseId" value="@ViewData["CourseId"]" />
-          @*  <input type="hidden" name="courseId" value="@ViewBag.CourseId" /> *@
-
+            <input type="hidden" asp-for="TestId" />
             
             <div class="form-group">
-                <label asp-for="LessonName" class="control-label"></label>
-                <input asp-for="LessonName" class="form-control" />
-                <span asp-validation-for="LessonName" class="text-danger"></span>
+                <label asp-for="TestName" class="control-label"></label>
+                <input asp-for="TestName" class="form-control" />
+                <span asp-validation-for="TestName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LessonDescription" class="control-label"></label>
-                @* <input asp-for="LessonDescription" class="form-control" /> *@
-                <textarea id="tiny" name="LessonDescription" class="form-control"></textarea>
-                <span asp-validation-for="LessonDescription" class="text-danger"></span>
+                <label asp-for="TestDescription" class="control-label"></label>
+
+                <textarea id="tiny" name="TestDescription" class="form-control"></textarea>
+                <span asp-validation-for="TestDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-               @*  <label asp-for="ImgUrl" class="control-label"></label> *@
-               <p>Note</p>
-                <input asp-for="ImgUrl" class="form-control" />
-                <span asp-validation-for="ImgUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    @* <a asp-action="Index">Back to List</a> *@
-    <a asp-controller="Lessons" asp-action="Index" asp-route-courseId="@ViewData["CourseId"]">Back to list</a>
+    <a asp-controller="Tests" asp-action="Index" asp-route-courseId="@Model.CourseId">Back to list</a>
 </div>
 
 @section Scripts {

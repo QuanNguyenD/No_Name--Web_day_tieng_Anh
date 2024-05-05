@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Web_day_tieng_Anh.Models.Test>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-controller="Tests" asp-action="Add" asp-route-courseId="@Model.FirstOrDefault()?.CourseId" class="btn btn-primary mx-2">Add</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Serial Number
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TestName)
+            </th>
+            
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+                <td class="serial-number"></td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestName)
+            </td>
+            
+            
+            <td>
+                <a asp-action="Update" asp-route-id="@item.TestId">Edit</a> |
+                <a asp-action="Display" asp-route-id="@item.TestId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TestId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@section Scripts {
+    <script>
+        // Get all elements with class "serial-number"
+        var serialNumbers = document.querySelectorAll('.serial-number');
+
+        // Loop through each element and set its text content to the corresponding index + 1
+        serialNumbers.forEach(function (element, index) {
+            element.textContent = index + 1;
+        });
+    </script>
+}

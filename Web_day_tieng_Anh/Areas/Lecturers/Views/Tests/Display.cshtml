@@ -1,0 +1,33 @@
+﻿@model Web_day_tieng_Anh.Models.Test
+
+@{
+    ViewData["Title"] = "Display";
+}
+
+<h1>Display</h1>
+
+<div>
+    <h4>Test</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TestName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TestName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TestDescription)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.Raw(Model.TestDescription)
+        </dd>
+        
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.TestId">Edit</a> |
+    <a asp-controller="Tests" asp-action="Index" asp-route-courseId="@Model.CourseId">Back to list</a>
+    <a asp-controller="Questions" asp-action="Add" asp-route-TestId="@Model.TestId" class="btn btn-primary mx-2">Add Question</a>
+    <a asp-controller="Tests" asp-action="Index" asp-route-TestId="@Model.TestId" class="btn btn-primary mx-2">List questions</a>
+</div>

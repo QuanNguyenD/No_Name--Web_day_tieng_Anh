@@ -4,9 +4,9 @@
     ViewData["Title"] = "Display";
 }
 
-<h1>Display</h1>
 
-<div>
+
+<div style="background-color: darkgreen;">
     <h4>Course</h4>
     <hr />
     <dl class="row">
@@ -47,7 +47,11 @@
 <div>
     <a asp-action="Update" asp-route-id="@Model.CourseId">Edit</a>
     <a asp-action="Delete" asp-route-id="@Model.CourseId">Delete</a>
-    <a asp-controller="Quesstions" asp-action="Index" asp-route-courseId="@Model.CourseId" class="btn btn-primary mx-2">View All Lessons</a>
     <a asp-action="Index">Back to List</a>
+    <a asp-controller="Tests" asp-action="Index" asp-route-courseId="@Model.CourseId" class="btn btn-primary mx-2">View All Test</a>
+    <a asp-controller="Tests" asp-action="Add" asp-route-courseId="@Model.CourseId" class="btn btn-primary mx-2">Add Test</a>
+    <a asp-controller="Lessons" asp-action="Index" asp-route-courseId="@Model.CourseId" class="btn btn-primary mx-2">View All Lessons</a>
+    <a asp-controller="Lessons" asp-action="Add" asp-route-courseId="@Model.CourseId" class="btn btn-primary mx-2">Add Lessons</a>
+    
 </div>
 

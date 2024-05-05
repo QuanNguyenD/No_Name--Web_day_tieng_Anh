@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model IEnumerable<Web_day_tieng_Anh.Models.Course>
+@using Microsoft.AspNetCore.Identity
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -60,8 +62,41 @@
             <div class="container">
 
                 <div class="row">
+                    @{
+                        int count = 0;
+                        foreach (var item in Model)
+                        {
+                            if(count <= 6)
+                            {
+                                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100" data-course ="@item.CourseName">
+                                    <div class="course-item">
+                                        <img src="~/img/course-1.jpg" class="img-fluid" alt="...">
+                                        <div class="course-content">
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <p class="category">@item.CourseName</p>
+                                                <p class="price">$ @item.Price</p>
+                                            </div>
 
-                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                                            <h3><a asp-area="" asp-controller="Home" asp-action="CoursesDetail">@item.CourseName</a></h3>
+                                            <p class="description">Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.</p>
+                                            <div class="trainer d-flex justify-content-between align-items-center">
+                                                <div class="trainer-profile d-flex align-items-center">
+                                                    <img src="~/img/trainers/trainer-1-2.jpg" class="img-fluid" alt="">
+                                                    <a href="" class="trainer-link">Antonio</a>
+                                                </div>
+                                                <div class="trainer-rank d-flex align-items-center">
+                                                    <i class="bi bi-person user-icon"></i>&nbsp;50
+                                                    &nbsp;&nbsp;
+                                                    <i class="bi bi-heart heart-icon"></i>&nbsp;65
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> 
+                            }
+                        }
+                    }
+                    @* <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
                         <div class="course-item">
                             <img src="~/img/course-1.jpg" class="img-fluid" alt="...">
                             <div class="course-content">
@@ -113,9 +148,9 @@
                         </div>
                     </div> <!-- End Course Item-->
 
-                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-course="zoom-in" data-aos-delay="300">
                         <div class="course-item">
-                            <img src="assets/img/course-3.jpg" class="img-fluid" alt="...">
+                            <img src="~/img/course-3.jpg" class="img-fluid" alt="...">
                             <div class="course-content">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                     <p class="category">Content</p>
@@ -137,7 +172,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div> <!-- End Course Item-->
+                    </div> <!-- End Course Item--> *@
 
                 </div>
 

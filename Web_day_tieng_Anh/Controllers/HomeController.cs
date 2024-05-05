@@ -1,16 +1,18 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Web_day_tieng_Anh.Models;
+using Web_day_tieng_Anh.Repository;
 
 namespace Web_day_tieng_Anh.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ICoursesRepository _coursesRepository;
+
+        public HomeController(ICoursesRepository coursesRepository)
         {
-            _logger = logger;
+            _coursesRepository = coursesRepository;
         }
 
         public IActionResult Index()
@@ -26,10 +28,10 @@ namespace Web_day_tieng_Anh.Controllers
         {
             return View();
         }
-        public IActionResult Courses() 
-        {
-            return View();
-        }
+        //public IActionResult Courses() 
+        //{
+        //    return View();
+        //}
         public IActionResult Trainers()
         {
             return View();
@@ -43,7 +45,11 @@ namespace Web_day_tieng_Anh.Controllers
         {
             return View();
         }
-
+        public async Task<IActionResult> Courses()
+        {
+            var courses = await _coursesRepository.GetAllAsync();
+            return View(courses);
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
