@@ -1,5 +1,5 @@
 ﻿@model Web_day_tieng_Anh.Models.Lesson
-
+@using Microsoft.AspNetCore.Mvc.Rendering
 @{
     ViewData["Title"] = "Add";
 }
@@ -26,7 +26,7 @@
 <hr />
 <div class="row">
     <div class="col-md-10">
-        <form asp-action="Add">
+        <form asp-action="Add" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="CourseId" value="@ViewData["CourseId"]" />
           @*  <input type="hidden" name="courseId" value="@ViewBag.CourseId" /> *@
@@ -44,9 +44,8 @@
                 <span asp-validation-for="LessonDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-               @*  <label asp-for="ImgUrl" class="control-label"></label> *@
-               <p>Note</p>
-                <input asp-for="ImgUrl" class="form-control" />
+                <label asp-for="ImgUrl" class="control-label">Ảnh sản phẩm:</label>
+                <input type="file" asp-for="ImgUrl"  class="form-control" />
                 <span asp-validation-for="ImgUrl" class="text-danger"></span>
             </div>
             <div class="form-group">

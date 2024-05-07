@@ -9,6 +9,32 @@
 <div>
     
     <hr/>
+
+    <div class="col-5 align-items-center">
+        <div class="row mt-2 justify-content-center">
+            @if (!string.IsNullOrEmpty(Model.ImgUrl))
+            {
+                @* <img src="@Model.ImageUrl" alt="Product Image" style="max-width: 250px;" />
+                <source src="@Model.ImgUrl" type="video/mp4"> *@
+                <video width="400" controls>
+                    <source src="@Model.ImgUrl" type="video/mp4">
+                   
+                    Your browser does not support HTML video.
+                </video>
+            }
+        </div>
+        @* <div class="row  mt-2">
+            @if (ViewBag.lsImage != null)
+            {
+                foreach (var img in ViewBag.lsImage)
+                {
+                    <img class="m-1" src="@img.Url" alt="Product Image" style="max-width: 100px; max-height: 100px" />
+                }
+            }
+        </div> *@
+
+    </div>
+
     <article>
         @Html.Raw(Model.LessonDescription)
     </article>

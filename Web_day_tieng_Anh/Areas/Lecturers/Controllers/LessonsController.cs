@@ -24,7 +24,9 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
 
         }
 
-        
+
+
+       
 
         public async Task<IActionResult> Index(int courseId)
         {
@@ -78,13 +80,7 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
                 return NotFound();
             }
 
-            //// Pass the courseId and other necessary data to the view
-            ////var lessonViewModel = new Lesson
-            ////{
-            ////    CourseId = course.CourseId,
-            ////     // Assuming you want to display the course name in the view
-            ////                                   // You can include other properties from the course as needed
-            ////};
+
 
             //return View(lessonViewModel);
             ViewData["CourseId"] = courseId;
@@ -92,13 +88,17 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
         }
         // Xử lý thêm sản phẩm mới
         [HttpPost]
-        public async Task<IActionResult> Add(Lesson lesson)
+        public async Task<IActionResult> Add(Lesson lesson, IFormFile UpVideoUrl)
         {
-            
+
             if (ModelState.IsValid)
             {
-                
-                
+                if (UpVideoUrl != null)
+                {
+                    
+                    lesson.ImgUrl = await SaveVideo(UpVideoUrl);
+                }
+
                 await _lessonRepository.AddAsync(lesson);
                 var lessons = await _context.Lessons
              .Where(l => l.CourseId == lesson.CourseId)
@@ -108,11 +108,21 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
             }
             // Nếu ModelState không hợp lệ, hiển thị form với dữ liệu đã nhập
             var course = await _coursesRepository.GetAllAsync();
-           
-            
+
+
             ViewBag.Course = new SelectList(course, "CourseId", "CourseName");
             return View(lesson);
         }
+        private async Task<string> SaveVideo(IFormFile UpVideoUrl)
+        {
+            var savePath = Path.Combine("wwwroot/videos", UpVideoUrl.FileName);
+            using (var fileStream = new FileStream(savePath, FileMode.Create))
+            {
+                await UpVideoUrl.CopyToAsync(fileStream);
+            }
+            return "/videos/" + UpVideoUrl.FileName;
+        }
+
         public async Task<IActionResult> Update(int id)
         {
             var lesson = await _lessonRepository.GetByIdAsync(id);
@@ -126,8 +136,9 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
         }
         // Xử lý cập nhật sản phẩm
         [HttpPost]
-        public async Task<IActionResult> Update(int id, Lesson lesson)
+        public async Task<IActionResult> Update(int id, Lesson lesson, IFormFile videoUrl)
         {
+            ModelState.Remove("ImageUrl");
             var lessonUp = await _lessonRepository.GetByIdAsync(id);
             var courseId = lessonUp.CourseId;
             if (id != lesson.LessionId)
@@ -140,10 +151,19 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
                 var existingLessons = await _lessonRepository.GetByIdAsync(id); // Giả định có phương thức GetByIdAsync
 
 
-                
-                
+                if (videoUrl == null)
+                {
+                    lesson.ImgUrl = existingLessons.ImgUrl;
+                }
+                else
+                {
+                    // Lưu hình ảnh mới
+                    
+                    lesson.ImgUrl = await SaveVideo(videoUrl);
+                }
+
                 // Cập nhật các thông tin khác 
-                
+
                 existingLessons.LessonName = lesson.LessonName;
                 existingLessons.LessonDescription = lesson.LessonDescription;
                 
