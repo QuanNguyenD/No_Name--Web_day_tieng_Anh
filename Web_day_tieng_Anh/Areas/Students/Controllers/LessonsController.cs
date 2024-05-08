@@ -17,11 +17,12 @@ namespace Web_day_tieng_Anh.Areas.Students.Controllers
             _lessonRepository = lessonRepository;
            
         }
-
+        
         // Hiển thị danh sách danh mục
         public async Task<IActionResult> Index()
         {
             var courses = await _lessonRepository.GetAllAsync();
+            
             return View(courses);
         }
 

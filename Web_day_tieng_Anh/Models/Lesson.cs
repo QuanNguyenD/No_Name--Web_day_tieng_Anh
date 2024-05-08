@@ -9,7 +9,7 @@ namespace Web_day_tieng_Anh.Models
         public int CourseId { get; set; }
         public string LessonName { get; set;}
         public string LessonDescription { get; set; }
-        public string ImgUrl { get; set; }
+        public string? ImgUrl { get; set; }
         
         public Course? Course { get; set; }
 

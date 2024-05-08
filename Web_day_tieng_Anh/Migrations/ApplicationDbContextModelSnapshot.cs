@@ -402,7 +402,6 @@ namespace Web_day_tieng_Anh.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ImgUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LessonDescription")

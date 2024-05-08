@@ -32,6 +32,7 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
         {
             //var lessons1 = await _lessonRepository.GetAllAsync();
             // Retrieve lessons associated with the specified courseId
+            
             var lessons = _context.Lessons.Where(l => l.CourseId == courseId).Include(p => p.Course).ToList();
 
 
@@ -138,7 +139,7 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(int id, Lesson lesson, IFormFile videoUrl)
         {
-            ModelState.Remove("ImageUrl");
+            ModelState.Remove("ImgUrl");
             var lessonUp = await _lessonRepository.GetByIdAsync(id);
             var courseId = lessonUp.CourseId;
             if (id != lesson.LessionId)
