@@ -137,48 +137,86 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
         }
         // Xử lý cập nhật sản phẩm
         [HttpPost]
-        public async Task<IActionResult> Update(int id, Lesson lesson, IFormFile videoUrl)
+        //public async Task<IActionResult> Update(int id, Lesson lesson, IFormFile videoUrl)
+        //{
+        //    ModelState.Remove("ImgUrl");
+        //    var lessonUp = await _lessonRepository.GetByIdAsync(id);
+        //    var courseId = lessonUp.CourseId;
+        //    if (id != lesson.LessionId)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        var existingLessons = await _lessonRepository.GetByIdAsync(id); // Giả định có phương thức GetByIdAsync
+
+
+        //        if (videoUrl == null)
+        //        {
+        //            lesson.ImgUrl = existingLessons.ImgUrl;
+        //        }
+        //        else
+        //        {
+        //            // Lưu hình ảnh mới
+
+        //            lesson.ImgUrl = await SaveVideo(videoUrl);
+        //        }
+
+        //        // Cập nhật các thông tin khác 
+
+        //        existingLessons.LessonName = lesson.LessonName;
+        //        existingLessons.LessonDescription = lesson.LessonDescription;
+
+
+
+        //        await _lessonRepository.UpdateAsync(existingLessons);
+        //        //return RedirectToAction(nameof(Index));
+        //        return RedirectToAction("Index", "Lessons", new { courseId });
+        //    }
+        //    var courses = await _coursesRepository.GetAllAsync();
+
+        //    ViewBag.Courses = new SelectList(courses, "CourseId", "CourseName");
+        //    //return View(lesson);
+        //    return RedirectToAction("Index", "Lessons", new { courseId });
+        //}
+        public async Task<IActionResult> Update(int id, [Bind("LessonId, LessonName, LessonDescription")] Lesson lesson, IFormFile videoUrl)
         {
             ModelState.Remove("ImgUrl");
-            var lessonUp = await _lessonRepository.GetByIdAsync(id);
-            var courseId = lessonUp.CourseId;
-            if (id != lesson.LessionId)
+            var existingLesson = await _lessonRepository.GetByIdAsync(id);
+            if (existingLesson == null)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                var existingLessons = await _lessonRepository.GetByIdAsync(id); // Giả định có phương thức GetByIdAsync
-
-
                 if (videoUrl == null)
                 {
-                    lesson.ImgUrl = existingLessons.ImgUrl;
+                    lesson.ImgUrl = existingLesson.ImgUrl;
                 }
                 else
                 {
-                    // Lưu hình ảnh mới
                     
+
                     lesson.ImgUrl = await SaveVideo(videoUrl);
                 }
 
-                // Cập nhật các thông tin khác 
 
-                existingLessons.LessonName = lesson.LessonName;
-                existingLessons.LessonDescription = lesson.LessonDescription;
+                // Cập nhật các thông tin khác 
+                existingLesson.LessonName = lesson.LessonName;
+                existingLesson.LessonDescription = lesson.LessonDescription;
+                existingLesson.ImgUrl = lesson.ImgUrl;
                 
 
-
-                await _lessonRepository.UpdateAsync(existingLessons);
-                //return RedirectToAction(nameof(Index));
-                return RedirectToAction("Index", "Lessons", new { courseId });
+                await _lessonRepository.UpdateAsync(existingLesson);
+                return RedirectToAction("Index", "Lessons", new { courseId = existingLesson.CourseId });
             }
+
+            // If ModelState is not valid, reload the view with the existing data
             var courses = await _coursesRepository.GetAllAsync();
-            
-            ViewBag.Courses = new SelectList(courses, "CourseId", "CourseName");
-            //return View(lesson);
-            return RedirectToAction("Index", "Lessons", new { courseId });
+            ViewBag.Courses = new SelectList(courses, "CourseId", "CourseName", existingLesson.CourseId);
+            return View(existingLesson);
         }
 
 

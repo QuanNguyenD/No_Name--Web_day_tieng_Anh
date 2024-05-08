@@ -42,24 +42,14 @@
                 <textarea id="tiny" name="LessonDescription" class="form-control">@Html.Raw(Model.LessonDescription)</textarea>
                 <span asp-validation-for="LessonDescription" class="text-danger"></span>
             </div>
-           @* <div class="form-group mt-2">
-                <label asp-for="ImgUrl">Product Image</label>
-                <input type="file" asp-for="ImgUrl" class="form-control " id="imageInput" />
-                <video class="mt-2" src="@Model.ImgUrl" alt="Product Image" id="previewImage" /> 
-                <video class="mt-2" width="400" controls>
-                    <source src="@Model.ImgUrl" type="video/mp4" id="previewImage">
-                   
-                    Your browser does not support HTML video.
-                </video>
-            </div> *@
            <div class="form-group mt-2">
                 <label asp-for="ImgUrl">Product Video</label>
-                <input type="file" asp-for="ImgUrl" class="form-control" id="videoInput" />
+                <input type="file" asp-for="ImgUrl" name="videoUrl" class="form-control" id="videoInput" />
                 <video class="mt-2" width="400" controls id="previewVideo">
                     <source src="@Model.ImgUrl" type="video/mp4">
                     Your browser does not support HTML video.
                 </video>
-            </div
+            </div>
 
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -72,20 +62,6 @@
     <a asp-controller="Lessons" asp-action="Index" asp-route-courseId="@Model.CourseId">Back to list</a>
 </div>
 
-@* <script>
-    document.getElementById('imageInput').addEventListener('change', function (e) {
-        var output = document.getElementById('previewImage');
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                output.src = e.target.result;
-                output.style.display = 'block';
-            }
-
-            reader.readAsDataURL(this.files[0]);
-        }
-    })
-</script> *@
 <script>
     document.getElementById('videoInput').addEventListener('change', function (e) {
         var video = document.getElementById('previewVideo');

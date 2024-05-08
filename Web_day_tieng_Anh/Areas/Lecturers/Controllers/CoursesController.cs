@@ -99,6 +99,7 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
                 existingCourse.CourseDescription = course.CourseDescription;
                 existingCourse.Price = course.Price;
                 existingCourse.Ratings = course.Ratings;
+                existingCourse.Level = course.Level;
 
 
 
