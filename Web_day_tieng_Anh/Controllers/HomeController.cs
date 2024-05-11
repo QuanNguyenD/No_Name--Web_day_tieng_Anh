@@ -45,11 +45,22 @@ namespace Web_day_tieng_Anh.Controllers
         {
             return View();
         }
-        public IActionResult Class10()
+        public async Task <IActionResult> Class10()
         {
-            return View();
+            var class10 = await _coursesRepository.GetAllAsync();
+            return View(class10);
         }
-            
+        public async Task<IActionResult> Class11()
+        {
+            var class10 = await _coursesRepository.GetAllAsync();
+            return View(class10);
+        }
+        public async Task<IActionResult> Class12()
+        {
+            var class10 = await _coursesRepository.GetAllAsync();
+            return View(class10);
+        }
+
         public async Task<IActionResult> Courses()
         {
             var courses = await _coursesRepository.GetAllAsync();

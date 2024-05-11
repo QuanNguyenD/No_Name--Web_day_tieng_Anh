@@ -1,16 +1,13 @@
 ﻿@model IEnumerable<Web_day_tieng_Anh.Models.Course>
-@using Microsoft.AspNetCore.Identity
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/css/style.css">
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-
-    <!-- Favicons -->
+    <script src="https://kit.fontawesome.com/00288d6413.js"></script>
     <link href="~/img/favicon.png" rel="icon">
     <link href="~/img/apple-touch-icon.png" rel="apple-touch-icon">
 
@@ -25,38 +22,11 @@
     <link href="~/vendor/aos/aos.css" rel="stylesheet">
     <link href="~/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
     <link href="~/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-
 </head>
 
 <body>
 
-    
-
     <main class="main">
-
-        <!-- Page Title -->
-        <div class="page-title" data-aos="fade">
-            <div class="heading">
-                <div class="container">
-                    <div class="row d-flex justify-content-center text-center">
-                        <div class="col-lg-8">
-                            <h1>Courses</h1>
-                            <p class="mb-0">Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <nav class="breadcrumbs">
-                <div class="container">
-                    <ol>
-                        <li><a href="index.html">Home</a></li>
-                        <li class="current">Courses</li>
-                    </ol>
-                </div>
-            </nav>
-        </div><!-- End Page Title -->
-        <!-- Courses List Section -->
         <section id="courses-list" class="section courses-list">
 
             <div class="container">
@@ -66,9 +36,9 @@
                         int count = 0;
                         foreach (var item in Model)
                         {
-                            if(count <= 6 )
+                            if (count <= 6 && item.Level ==10)
                             {
-                                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100" data-course ="@item.CourseName">
+                                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100" data-course="@item.CourseName">
                                     <div class="course-item">
                                         <img src="~/img/course-1.jpg" class="img-fluid" alt="...">
                                         <div class="course-content">
@@ -92,11 +62,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
                             }
                         }
                     }
-                    
+
 
                 </div>
 
@@ -104,9 +74,18 @@
 
         </section><!-- /Courses List Section -->
 
+
+
+
+
     </main>
 
-    
+
+
+
+
+
+
 
     <!-- Scroll Top -->
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -125,8 +104,6 @@
 
 
     <script src="~/js/script.js"></script>
-
-
 </body>
 
 </html>
