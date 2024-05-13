@@ -4,54 +4,70 @@
     ViewData["Title"] = "Display";
 }
 
-
-
-<div style="background-color: darkgreen;">
+<div style="background-color: #fff;">
     <h4>Course</h4>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CourseName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CourseName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CourseDescription)
-        </dt>
-        <dd class="col-sm-10">
-            
-            @Html.Raw(Model.CourseDescription)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Level)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Level)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Ratings)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Ratings)
-        </dd>
-    </dl>
-    
+    <div class="row">
+        <div class="col-sm-8">
+            <dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.CourseName)
+    </dt>
+    <dd class="col-sm-10 pl-8" style="margin-bottom: 10px;">
+        @Html.DisplayFor(model => model.CourseName)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.CourseDescription)
+    </dt>
+    <dd class="col-sm-10 pl-8" style="margin-bottom: 10px;">
+        @Html.Raw(Model.CourseDescription)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Level)
+    </dt>
+    <dd class="col-sm-10 pl-8" style="margin-bottom: 10px;">
+        @Html.DisplayFor(model => model.Level)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Price)
+    </dt>
+    <dd class="col-sm-10 pl-8" style="margin-bottom: 10px;">
+        @Html.DisplayFor(model => model.Price)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Ratings)
+    </dt>
+    <dd class="col-sm-10 pl-8" style="margin-bottom: 10px;">
+        @Html.DisplayFor(model => model.Ratings)
+    </dd>
+</dl>
+        </div>
+        <div class="col-sm-4 align-self-start">
+            <ul style="list-style-type: none; margin: 0; padding: 0;">
+                <li>
+                    <a asp-controller="Tests" asp-action="Index" asp-route-courseId="@Model.CourseId" class="btn btn-primary mx-2" style="margin-bottom: 10px;">View All Test</a>
+                </li>
+                <li>
+                    <a asp-controller="Tests" asp-action="Add" asp-route-courseId="@Model.CourseId" class="btn btn-primary mx-2" style="margin-bottom: 10px;">Add Test</a>
+                </li>
+                <li>
+                    <a asp-controller="Lessons" asp-action="Index" asp-route-courseId="@Model.CourseId" class="btn btn-primary mx-2" style="margin-bottom: 10px;">View All Lessons</a>
+                </li>
+                <li>
+                    <a asp-controller="Lessons" asp-action="Add" asp-route-courseId="@Model.CourseId" class="btn btn-primary mx-2" style="margin-bottom: 10px;">Add Lessons</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Update" asp-route-id="@Model.CourseId">Edit</a>
-    <a asp-action="Delete" asp-route-id="@Model.CourseId">Delete</a>
-    <a asp-action="Index">Back to List</a>
-    <a asp-controller="Tests" asp-action="Index" asp-route-courseId="@Model.CourseId" class="btn btn-primary mx-2">View All Test</a>
-    <a asp-controller="Tests" asp-action="Add" asp-route-courseId="@Model.CourseId" class="btn btn-primary mx-2">Add Test</a>
-    <a asp-controller="Lessons" asp-action="Index" asp-route-courseId="@Model.CourseId" class="btn btn-primary mx-2">View All Lessons</a>
-    <a asp-controller="Lessons" asp-action="Add" asp-route-courseId="@Model.CourseId" class="btn btn-primary mx-2">Add Lessons</a>
-    
+<div class="row">
+    <div class="col">
+        <a asp-action="Update" asp-route-id="@Model.CourseId" class="btn btn-info mx-2" style="color: black;">Edit</a></li>
+        <a asp-action="Delete" asp-route-id="@Model.CourseId" class="btn btn-danger mx-2" style="color: black;">Delete</a>
+        <a asp-action="Index" class="btn btn-warning mx-2" style="color: black;">Back to List</a>
+    </div>
 </div>
+
+
 

@@ -46,7 +46,7 @@
 }
     </tbody>
 </table>
-<a asp-controller="Courses" asp-action="Index">Back to List</a>
+<a asp-controller="Courses" asp-action="Display" asp-route-id="@Model.FirstOrDefault()?.CourseId" class="btn btn-warning mx-2" style="color: black;">Back</a>
 @section Scripts {
     <script>
         // Get all elements with class "serial-number"
