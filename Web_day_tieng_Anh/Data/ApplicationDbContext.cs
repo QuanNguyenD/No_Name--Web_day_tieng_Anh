@@ -15,7 +15,7 @@ namespace Web_day_tieng_Anh.Data
         public DbSet<CourseGroupMapping> CourseGroupMappings { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
-        public DbSet<StudentProgress> StudentProgresses { get; set; }
+        public DbSet<EnrollmentDetail> EnrollmentDetail { get; set; }
 
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Test> Tests { get; set; }

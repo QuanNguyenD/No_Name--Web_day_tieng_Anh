@@ -1,0 +1,23 @@
+﻿@model CartBuyCourse
+<h2>Your Cart</h2>
+<table>
+	<tr>
+		<th>Course</th>
+
+		<th>Price</th>
+
+	</tr>
+	@foreach (var item in Model.Items)
+	{
+		<tr>
+
+			<td>@item.NameCourse</td>
+
+			<td>@item.Price</td>
+
+			<td>
+				<a asp-action="RemoveFromCart" asp-route-coursetId="@item.CourseId">Remove</a>
+			</td>
+		</tr>
+	}
+</table>

@@ -10,14 +10,14 @@ namespace Web_day_tieng_Anh.Repository
         {
             _context = context;
         }
-        public async Task<IEnumerable<StudentProgress>> GetAllAsync()
+        public async Task<IEnumerable<EnrollmentDetail>> GetAllAsync()
         {
-            return await _context.StudentProgresses.ToListAsync();
+            return await _context.EnrollmentDetail.ToListAsync();
         }
 
-        public async Task<StudentProgress> GetByIdAsync(int id)
+        public async Task<EnrollmentDetail> GetByIdAsync(int id)
         {
-            return await _context.StudentProgresses.FindAsync(id);
+            return await _context.EnrollmentDetail.FindAsync(id);
 
         }
     }

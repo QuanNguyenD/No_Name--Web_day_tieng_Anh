@@ -13,7 +13,7 @@ namespace Web_day_tieng_Anh.Models
         
         public Course? Course { get; set; }
 
-        public List<StudentProgress>? StudentProgresses { get; set; }
+        
         public List<Comment>? Comments { get; set; }
 
     }

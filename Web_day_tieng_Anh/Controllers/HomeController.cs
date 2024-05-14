@@ -37,11 +37,15 @@ namespace Web_day_tieng_Anh.Controllers
             return View();
         }
         //Dua courses va detaild vao 1 file controllel
-        public IActionResult CoursesDetail()
+        public async Task<IActionResult> CoursesDetail(int id)
         {
-            return View();
+            var course = await _coursesRepository.GetByIdAsync(id);
+            if (course == null)
+                return NotFound();
+            return View(course);
         }
-        public IActionResult Event()
+    
+    public IActionResult Event()
         {
             return View();
         }

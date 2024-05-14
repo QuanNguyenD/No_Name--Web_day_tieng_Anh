@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Web_day_tieng_Anh.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -174,6 +174,27 @@ namespace Web_day_tieng_Anh.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Enrollments",
+                columns: table => new
+                {
+                    EnrollmentsId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    EnrollmentsDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Enrollments", x => x.EnrollmentsId);
+                    table.ForeignKey(
+                        name: "FK_Enrollments_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Courses",
                 columns: table => new
                 {
@@ -223,28 +244,29 @@ namespace Web_day_tieng_Anh.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Enrollments",
+                name: "EnrollmentDetail",
                 columns: table => new
                 {
-                    EnrollmentsId = table.Column<int>(type: "int", nullable: false)
+                    ProgressId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CourseId = table.Column<int>(type: "int", nullable: false),
-                    EnrollmentsDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    EnrollmentId = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Enrollments", x => x.EnrollmentsId);
+                    table.PrimaryKey("PK_EnrollmentDetail", x => x.ProgressId);
                     table.ForeignKey(
-                        name: "FK_Enrollments_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Enrollments_Courses_CourseId",
+                        name: "FK_EnrollmentDetail_Courses_CourseId",
                         column: x => x.CourseId,
                         principalTable: "Courses",
                         principalColumn: "CourseId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EnrollmentDetail_Enrollments_EnrollmentId",
+                        column: x => x.EnrollmentId,
+                        principalTable: "Enrollments",
+                        principalColumn: "EnrollmentsId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -306,34 +328,6 @@ namespace Web_day_tieng_Anh.Migrations
                     table.PrimaryKey("PK_Comments", x => x.CommentId);
                     table.ForeignKey(
                         name: "FK_Comments_Lessons_LessonLessionId",
-                        column: x => x.LessonLessionId,
-                        principalTable: "Lessons",
-                        principalColumn: "LessionId");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "StudentProgresses",
-                columns: table => new
-                {
-                    ProgressId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    LessionId = table.Column<int>(type: "int", nullable: false),
-                    EnrollmentId = table.Column<int>(type: "int", nullable: false),
-                    Completed = table.Column<bool>(type: "bit", nullable: false),
-                    CompletedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    LessonLessionId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StudentProgresses", x => x.ProgressId);
-                    table.ForeignKey(
-                        name: "FK_StudentProgresses_Enrollments_EnrollmentId",
-                        column: x => x.EnrollmentId,
-                        principalTable: "Enrollments",
-                        principalColumn: "EnrollmentsId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_StudentProgresses_Lessons_LessonLessionId",
                         column: x => x.LessonLessionId,
                         principalTable: "Lessons",
                         principalColumn: "LessionId");
@@ -464,9 +458,14 @@ namespace Web_day_tieng_Anh.Migrations
                 column: "CourseGroupsGroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Enrollments_CourseId",
-                table: "Enrollments",
+                name: "IX_EnrollmentDetail_CourseId",
+                table: "EnrollmentDetail",
                 column: "CourseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EnrollmentDetail_EnrollmentId",
+                table: "EnrollmentDetail",
+                column: "EnrollmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Enrollments_UserId",
@@ -482,16 +481,6 @@ namespace Web_day_tieng_Anh.Migrations
                 name: "IX_Questions_TestId",
                 table: "Questions",
                 column: "TestId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StudentProgresses_EnrollmentId",
-                table: "StudentProgresses",
-                column: "EnrollmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StudentProgresses_LessonLessionId",
-                table: "StudentProgresses",
-                column: "LessonLessionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tests_CourseId",
@@ -532,7 +521,7 @@ namespace Web_day_tieng_Anh.Migrations
                 name: "CourseGroupMappings");
 
             migrationBuilder.DropTable(
-                name: "StudentProgresses");
+                name: "EnrollmentDetail");
 
             migrationBuilder.DropTable(
                 name: "TestScores");
@@ -544,10 +533,10 @@ namespace Web_day_tieng_Anh.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Enrollments");
+                name: "Lessons");
 
             migrationBuilder.DropTable(
-                name: "Lessons");
+                name: "Enrollments");
 
             migrationBuilder.DropTable(
                 name: "Tests");

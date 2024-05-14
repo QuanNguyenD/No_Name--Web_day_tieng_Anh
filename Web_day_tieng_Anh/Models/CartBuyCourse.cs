@@ -6,7 +6,7 @@
         public void AddItem(CartItem item)
         {
             var existingItem = Items.FirstOrDefault(i => i.CourseId == item.CourseId);
-          Items.Add(item);
+            Items.Add(item);
             
         }
         public void RemoveItem(int courseId)

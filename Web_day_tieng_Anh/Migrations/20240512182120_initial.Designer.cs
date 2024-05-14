@@ -12,8 +12,8 @@ using Web_day_tieng_Anh.Data;
 namespace Web_day_tieng_Anh.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240507032753_Initial")]
-    partial class Initial
+    [Migration("20240512182120_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -375,22 +375,47 @@ namespace Web_day_tieng_Anh.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EnrollmentsId"));
 
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("EnrollmentsDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("EnrollmentsId");
 
-                    b.HasIndex("CourseId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Enrollments");
+                });
+
+            modelBuilder.Entity("Web_day_tieng_Anh.Models.EnrollmentDetail", b =>
+                {
+                    b.Property<int>("ProgressId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProgressId"));
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EnrollmentId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("ProgressId");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("EnrollmentId");
+
+                    b.ToTable("EnrollmentDetail");
                 });
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Lesson", b =>
@@ -442,38 +467,6 @@ namespace Web_day_tieng_Anh.Migrations
                     b.HasIndex("TestId");
 
                     b.ToTable("Questions");
-                });
-
-            modelBuilder.Entity("Web_day_tieng_Anh.Models.StudentProgress", b =>
-                {
-                    b.Property<int>("ProgressId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProgressId"));
-
-                    b.Property<bool>("Completed")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("CompletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("EnrollmentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("LessionId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("LessonLessionId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProgressId");
-
-                    b.HasIndex("EnrollmentId");
-
-                    b.HasIndex("LessonLessionId");
-
-                    b.ToTable("StudentProgresses");
                 });
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Test", b =>
@@ -619,19 +612,32 @@ namespace Web_day_tieng_Anh.Migrations
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Enrollment", b =>
                 {
+                    b.HasOne("Web_day_tieng_Anh.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+                });
+
+            modelBuilder.Entity("Web_day_tieng_Anh.Models.EnrollmentDetail", b =>
+                {
                     b.HasOne("Web_day_tieng_Anh.Models.Course", "Course")
                         .WithMany()
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Web_day_tieng_Anh.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("ApplicationUser");
+                    b.HasOne("Web_day_tieng_Anh.Models.Enrollment", "Enrollments")
+                        .WithMany("EnrollmentDetail")
+                        .HasForeignKey("EnrollmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Course");
+
+                    b.Navigation("Enrollments");
                 });
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Lesson", b =>
@@ -654,23 +660,6 @@ namespace Web_day_tieng_Anh.Migrations
                         .IsRequired();
 
                     b.Navigation("Test");
-                });
-
-            modelBuilder.Entity("Web_day_tieng_Anh.Models.StudentProgress", b =>
-                {
-                    b.HasOne("Web_day_tieng_Anh.Models.Enrollment", "Enrollments")
-                        .WithMany("StudentsProgress")
-                        .HasForeignKey("EnrollmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Web_day_tieng_Anh.Models.Lesson", "Lesson")
-                        .WithMany("StudentProgresses")
-                        .HasForeignKey("LessonLessionId");
-
-                    b.Navigation("Enrollments");
-
-                    b.Navigation("Lesson");
                 });
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Test", b =>
@@ -709,14 +698,12 @@ namespace Web_day_tieng_Anh.Migrations
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Enrollment", b =>
                 {
-                    b.Navigation("StudentsProgress");
+                    b.Navigation("EnrollmentDetail");
                 });
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Lesson", b =>
                 {
                     b.Navigation("Comments");
-
-                    b.Navigation("StudentProgresses");
                 });
 
             modelBuilder.Entity("Web_day_tieng_Anh.Models.Question", b =>

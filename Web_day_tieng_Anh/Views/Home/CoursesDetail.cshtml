@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Web_day_tieng_Anh.Models.Course>
+﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@model Web_day_tieng_Anh.Models.Course
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,7 +46,7 @@
                     <div class="row d-flex justify-content-center text-center">
                         <div class="col-lg-8">
                             <h1>Course Details</h1>
-                            <p class="mb-0">Odio et unde deleniti. Deserunt numquam exercitationem. Officiis quo odio sint voluptas consequatur ut a odio voluptatem. Sit dolorum debitis veritatis natus dolores. Quasi ratione sint. Sit quaerat ipsum dolorem.</p>
+                           
                         </div>
                     </div>
                 </div>
@@ -67,11 +68,9 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <img src="assets/img/course-details.jpg" class="img-fluid" alt="">
-                        <h3>Et enim incidunt fuga tempora</h3>
+                        <h3>@Html.DisplayFor(model => model.CourseName)</h3>
                         <p>
-                            Qui et explicabo voluptatem et ab qui vero et voluptas. Sint voluptates temporibus quam autem. Atque nostrum voluptatum laudantium a doloremque enim et ut dicta. Nostrum ducimus est iure minima totam doloribus nisi ullam deserunt. Corporis aut officiis sit nihil est. Labore aut sapiente aperiam.
-                            Qui voluptas qui vero ipsum ea voluptatem. Omnis et est. Voluptatem officia voluptatem adipisci et iusto provident doloremque consequatur. Quia et porro est. Et qui corrupti laudantium ipsa.
-                            Eum quasi saepe aperiam qui delectus quaerat in. Vitae mollitia ipsa quam. Ipsa aut qui numquam eum iste est dolorum. Rem voluptas ut sit ut.
+                            @Html.Raw(Model.CourseDescription)
                         </p>
                     </div>
                     <div class="col-lg-4">
@@ -92,9 +91,15 @@
                         </div>
 
                         <div class="course-info d-flex justify-content-between align-items-center">
-                            <h5>Schedule</h5>
+                            <h5>@Model.CourseId</h5>
                             <p>5.00 pm - 7.00 pm</p>
                         </div>
+                        <a asp-controller="CartBuyCourse" asp-action="AddToCart" asp-route-courseId="@Model.CourseId" method ="post">
+                           @*  <input type="hidden" name="CourseId" value="@Model.CourseId" /> *@
+                            <button class="btn btn-outline-dark">
+                                <i></i> Register the course
+                            </button>
+                        </a>
 
                     </div>
                 </div>

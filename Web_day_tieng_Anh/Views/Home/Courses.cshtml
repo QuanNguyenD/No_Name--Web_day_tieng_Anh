@@ -76,8 +76,8 @@
                                                 <p class="category">@item.CourseName</p>
                                                 <p class="price">$ @item.Price</p>
                                             </div>
-
-                                            <h3><a asp-area="" asp-controller="Home" asp-action="CoursesDetail">@item.CourseName</a></h3>
+                                            
+                                            <h3><a asp-area="" asp-controller="Home" asp-action="CoursesDetail" asp-route-id="@item.CourseId">@item.CourseName</a></h3>
                                             <p class="description">@item.CourseDescription</p>
                                             <div class="trainer d-flex justify-content-between align-items-center">
                                                 <div class="trainer-profile d-flex align-items-center">
@@ -91,6 +91,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div> 
                             }
