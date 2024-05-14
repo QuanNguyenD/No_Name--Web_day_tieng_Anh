@@ -72,12 +72,12 @@ namespace Web_day_tieng_Anh.Controllers
             var course = await _coursesRepository.GetByIdAsync(courseId);
             return course;
         }
-        public IActionResult RemoveFromCart(int productId)
+        public IActionResult RemoveFromCart(int courseId)
         {
             var cart = HttpContext.Session.GetObjectFromJson<CartBuyCourse>("Cart");
             if (cart is not null)
             {
-                cart.RemoveItem(productId);
+                cart.RemoveItem(courseId);
 
                 // Lưu lại giỏ hàng vào Session sau khi đã xóa mục
                 HttpContext.Session.SetObjectAsJson("Cart", cart);
