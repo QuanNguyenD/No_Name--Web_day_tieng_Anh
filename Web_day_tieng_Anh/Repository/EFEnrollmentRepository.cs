@@ -41,5 +41,9 @@ namespace Web_day_tieng_Anh.Repository
             _context.Enrollments.Remove(enrollment);
             await _context.SaveChangesAsync();
         }
+        public async Task<IEnumerable<Enrollment>> GetByUserIdAsync(string userId)
+        {
+            return await _context.Enrollments.Where(e => e.UserId == userId).ToListAsync();
+        }
     }
 }

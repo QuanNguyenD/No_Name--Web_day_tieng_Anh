@@ -41,5 +41,9 @@ namespace Web_day_tieng_Anh.Repository
             _context.Courses.Remove(courses);
             await _context.SaveChangesAsync();
         }
+        public async Task<IEnumerable<Course>> GetByIdsAsync(IEnumerable<int> ids)
+        {
+            return await _context.Courses.Where(c => ids.Contains(c.CourseId)).ToListAsync();
+        }
     }
 }

@@ -8,5 +8,7 @@ namespace Web_day_tieng_Anh.Repository
         Task AddAsync(Enrollment enrollment);
         Task UpdateAsync(Enrollment enrollment);
         Task DeleteAsync(int id);
+        Task<IEnumerable<Enrollment>> GetByUserIdAsync(string userId);
     }
 }
+

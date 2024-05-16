@@ -36,6 +36,10 @@ builder.Services.AddScoped<ILessonRepository, EFLessonRepository>();
 builder.Services.AddScoped<ITestRepository,EFTestRepository>();
 builder.Services.AddScoped<IQuestionRepository, EFQuestionRepository>();
 builder.Services.AddScoped<IAnswerRepository, EFAnswerRepository>();
+builder.Services.AddScoped<IEnrollmentRepository, EFEnrollmentRepository>();
+builder.Services.AddScoped<IEnrollmentDetailRepository, EFEnrollmentDetailRepository>();
+builder.Services.Configure<PayPalSettings>(builder.Configuration.GetSection("PayPal"));
+builder.Services.AddSingleton<PaypalConfiguration>();
 
 var app = builder.Build();
 

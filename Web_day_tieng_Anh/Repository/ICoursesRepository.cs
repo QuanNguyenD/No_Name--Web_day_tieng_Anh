@@ -9,5 +9,6 @@ namespace Web_day_tieng_Anh.Repository
         Task AddAsync(Course course);
         Task UpdateAsync(Course course);
         Task DeleteAsync(int id);
+        Task<IEnumerable<Course>> GetByIdsAsync(IEnumerable<int> courseIds);
     }
 }

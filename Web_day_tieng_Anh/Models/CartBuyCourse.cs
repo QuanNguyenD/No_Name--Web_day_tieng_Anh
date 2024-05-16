@@ -13,6 +13,11 @@
         {
             Items.RemoveAll(i => i.CourseId == courseId);
         }
+        public decimal CalculateTotalCost()
+        {
+            return Items.Sum(item => item.Price);
+        }
+
 
     }
 }
