@@ -4,52 +4,95 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s ease-in-out; 
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CourseName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CourseDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Level)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Ratings)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CourseName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CourseDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Level)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ratings)
-            </td>
-            
-        </tr>
-}
-    </tbody>
-</table>
+            .card:hover {
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+            }
+
+        .random-color-card {
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn-custom {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">My Courses</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">Manage Registered Courses</li>
+        </ol>
+
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <a class="card random-color-card" asp-controller="Courses" asp-action="Display" asp-route-id="@item.CourseId">
+                        <div class="card-body">
+                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.CourseName)</h5>
+                            <p class="card-text">@Html.DisplayFor(modelItem => item.CourseDescription)</p>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <strong>Level: </strong>@Html.DisplayFor(modelItem => item.Level)
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Price: </strong>@Html.DisplayFor(modelItem => item.Price)
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Ratings: </strong>@Html.DisplayFor(modelItem => item.Ratings)
+                                </li>
+                            </ul>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+
+        <script>
+            function getRandomColor() {
+                var colors = ["#007bff", "#6c757d", "#28a745", "#dc3545", "#ffc107", "#17a2b8"];
+                var randomIndex = Math.floor(Math.random() * colors.length);
+                return colors[randomIndex];
+            }
+
+            // Thay đổi màu sắc của các card
+            document.addEventListener("DOMContentLoaded", function () {
+                var cards = document.querySelectorAll('.random-color-card');
+                cards.forEach(function (card) {
+                    card.style.backgroundColor = getRandomColor();
+                });
+            });
+        </script>
+
+    </div>
+</body>
+</html>
+

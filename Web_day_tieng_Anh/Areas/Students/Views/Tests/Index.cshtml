@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Web_day_tieng_Anh.Models.Test>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<style>
+    .custom-button {
+        display: inline-block;
+        padding: 10px 20px;
+        border: 2px solid #00920B;
+        background-color: #00920B;
+        color: black;
+        text-decoration: none;
+        font-size: 16px;
+        text-align: center;
+        transition: background-color 0.3s, color 0.3s;
+        border-radius: 5px;
+    }
+
+        .custom-button:hover {
+            background-color: gray;
+            color: white;
+            text-shadow: 0 0 5px white;
+        }
+</style>
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Tests</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">My Test</li>
+    </ol>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Serial Number
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TestName)
+            </th>
+
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="serial-number"></td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TestName)
+                </td>
+
+
+                <td>
+                    @* <a asp-action="Update" asp-route-id="@item.TestId">Edit</a> | *@
+                        <a asp-action="Display" asp-route-id="@item.TestId" class="custom-button">Details</a>
+                    @* <a asp-action="Delete" asp-route-id="@item.TestId">Delete</a> *@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+    <a asp-controller="Courses" asp-action="Display" asp-route-id="@Model.FirstOrDefault()?.CourseId" class="custom-button">Back</a>
+@section Scripts {
+    <script>
+        // Get all elements with class "serial-number"
+        var serialNumbers = document.querySelectorAll('.serial-number');
+
+        // Loop through each element and set its text content to the corresponding index + 1
+        serialNumbers.forEach(function (element, index) {
+            element.textContent = index + 1;
+        });
+    </script>
+}
+</div>

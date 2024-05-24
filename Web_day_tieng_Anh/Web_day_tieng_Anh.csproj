@@ -8,12 +8,15 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\" />
-    <Folder Include="Areas\Students\Views\Lessons\" />
     <Folder Include="Areas\Students\Views\Answers\" />
-    <Folder Include="Areas\Students\Views\Tests\" />
     <Folder Include="Areas\Students\Views\Questions\" />
     <Folder Include="wwwroot\img\imguser\" />
     <Folder Include="wwwroot\videos\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\activetests\tests.css" />
+    <None Include="wwwroot\activetests\tests.js" />
   </ItemGroup>
 
   <ItemGroup>

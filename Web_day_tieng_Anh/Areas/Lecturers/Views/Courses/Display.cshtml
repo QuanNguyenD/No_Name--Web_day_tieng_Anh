@@ -45,13 +45,13 @@
         <div class="col-sm-4 align-self-start">
             <ul style="list-style-type: none; margin: 0; padding: 0;">
                 <li>
-                    <a asp-controller="Tests" asp-action="Index" asp-route-courseId="@Model.CourseId" class="btn btn-primary mx-2" style="margin-bottom: 10px;">View All Test</a>
+                    <a asp-area="Lecturers" asp-controller="Tests" asp-action="Index" asp-route-courseId="@Model.CourseId" class="btn btn-primary mx-2" style="margin-bottom: 10px;">View All Test</a>
                 </li>
                 <li>
                     <a asp-controller="Tests" asp-action="Add" asp-route-courseId="@Model.CourseId" class="btn btn-primary mx-2" style="margin-bottom: 10px;">Add Test</a>
                 </li>
                 <li>
-                    <a asp-controller="Lessons" asp-action="Index" asp-route-courseId="@Model.CourseId" class="btn btn-primary mx-2" style="margin-bottom: 10px;">View All Lessons</a>
+                    <a asp-area="Lecturers" asp-controller="Lessons" asp-action="Index" asp-route-courseId="@Model.CourseId" class="btn btn-primary mx-2" style="margin-bottom: 10px;">View All Lessons</a>
                 </li>
                 <li>
                     <a asp-controller="Lessons" asp-action="Add" asp-route-courseId="@Model.CourseId" class="btn btn-primary mx-2" style="margin-bottom: 10px;">Add Lessons</a>
