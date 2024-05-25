@@ -11,7 +11,7 @@ using static System.Net.Mime.MediaTypeNames;
 namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
 {
     [Area("Lecturers")]
-    [Authorize(Roles = "Lecturers")]
+    [Authorize(Roles ="Lecturers")]
     public class QuestionsController : Controller
     {
         private readonly ICoursesRepository _coursesRepository;

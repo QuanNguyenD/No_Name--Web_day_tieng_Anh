@@ -30,8 +30,7 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
 
         public async Task<IActionResult> Index(int courseId)
         {
-            //var lessons1 = await _lessonRepository.GetAllAsync();
-            // Retrieve lessons associated with the specified courseId
+            
             
             var lessons = _context.Lessons.Where(l => l.CourseId == courseId).Include(p => p.Course).ToList();
 

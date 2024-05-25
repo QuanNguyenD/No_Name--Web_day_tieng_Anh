@@ -5,7 +5,7 @@ using Web_day_tieng_Anh.Repository;
 namespace Web_day_tieng_Anh.Areas.Students.Controllers
 {
     [Area("Students")]
-    [Authorize(Roles = "Student")]
+    [Authorize(Roles ="Student")]
     public class QuestionsController : Controller
     {
         private readonly ICoursesRepository _coursesRepository;
