@@ -46,55 +46,17 @@
             </div>
         </section>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                var likeButton = document.getElementById('likeButton');
-                var likeCountSpan = document.getElementById('likeCount');
-                var likeIcon = document.getElementById('likeIcon');
-
-                // Khởi tạo số like từ Local Storage hoặc mặc định là 0 nếu không có
-                var likeCount = parseInt(localStorage.getItem('likeCount')) || 0;
-                likeCountSpan.textContent = likeCount + " likes";
-
-                // Biến kiểm tra xem người dùng đã like chưa
-                var liked = localStorage.getItem('liked') === 'true';
-
-                // Cập nhật trạng thái của nút like và icon
-                if (liked) {
-                    likeButton.classList.add('liked');
-                    likeIcon.classList.add('liked');
-                }
-
-                likeButton.addEventListener('click', function () {
-                    if (!liked) {
-                        likeCount++;
-                        localStorage.setItem('likeCount', likeCount);
-                        likeCountSpan.textContent = likeCount + " likes";
-                        localStorage.setItem('liked', 'true');
-                        likeButton.classList.add('liked');
-                        likeIcon.classList.add('liked');
-                        liked = true;
-                    } else {
-                        likeCount--;
-                        localStorage.setItem('likeCount', likeCount);
-                        likeCountSpan.textContent = likeCount + " likes";
-                        localStorage.setItem('liked', 'false');
-                        likeButton.classList.remove('liked');
-                        likeIcon.classList.remove('liked');
-                        liked = false;
-                    }
-                });
-            });
-        </script>
-
         <section class="comments">
             <h1 class="heading" id="commentCountHeading"> Comments</h1>
 
             <hr style="color:black">
 
+            <!-- Form thêm comment -->
             <form action="" class="add-comment">
                 <h3>Add Comments</h3>
                 <textarea id="commentText" name="comment_box" placeholder="enter your comment" required maxlength="1000" cols="30" rows="10"></textarea>
+                <input type="hidden" id="lessonId" name="lessonId" value="@Model.LessionId">
+                <input type="hidden" id="userName" name="userName" value="@User.Identity.Name">
                 <input type="submit" value="Add Comment" class="add-comment-button" name="add_comment">
             </form>
 
@@ -106,11 +68,10 @@
             </div>
         </section>
 
-
-    <div>
-        <a asp-controller="Lessons" asp-action="Index" asp-route-courseId="@Model.CourseId" class="custom-button">Back</a>
+        <div>
+            <a asp-controller="Lessons" asp-action="Index" asp-route-courseId="@Model.CourseId" class="custom-button">Back</a>
+        </div>
     </div>
-</div>
 </div>
 
 <style>
@@ -414,79 +375,57 @@
             var addCommentForm = document.querySelector('.add-comment');
             var commentBoxContainer = document.getElementById('commentBoxContainer');
             var commentCountHeading = document.getElementById('commentCountHeading');
-            var editMode = false; // Biến để kiểm tra xem có đang ở chế độ chỉnh sửa comment hay không
-            var editedCommentIndex = null; // Index của comment đang được chỉnh sửa
+            var editMode = false;
+            var editedCommentIndex = null;
 
-            // Lấy danh sách comment từ Local Storage nếu có
-            var comments = JSON.parse(localStorage.getItem('comments')) || [];
+            var lessonId = document.getElementById('lessonId').value;
+            var comments = JSON.parse(localStorage.getItem('comments_' + lessonId)) || [];
 
-            // Hiển thị số lượng comment
             commentCountHeading.textContent = comments.length + " Comments";
 
-            // Hiển thị các comment đã lưu trữ
             comments.forEach(function (comment, index) {
                 var commentBox = createCommentBox(comment, index);
                 commentBoxContainer.appendChild(commentBox);
             });
 
             addCommentForm.addEventListener('submit', function (event) {
-                event.preventDefault(); // Ngăn chặn form gửi đi
+                event.preventDefault();
 
                 var commentText = document.getElementById('commentText').value;
+                var userName = document.getElementById('userName').value;
+
                 if (commentText.trim() === '') {
-                    alert('Please enter your comment.'); // Hiển thị cảnh báo nếu comment rỗng
+                    alert('Please enter your comment.');
                     return;
                 }
 
                 if (editMode) {
-                    // Nếu đang ở chế độ chỉnh sửa, cập nhật comment và lưu vào Local Storage
                     comments[editedCommentIndex].text = commentText;
-                    localStorage.setItem('comments', JSON.stringify(comments));
-
-                    // Hiển thị lại các comment sau khi chỉnh sửa
+                    localStorage.setItem('comments_' + lessonId, JSON.stringify(comments));
                     refreshComments();
-
-                    // Reset lại các biến
                     editMode = false;
                     editedCommentIndex = null;
                 } else {
-                    // Lấy ngày, tháng, năm, giờ, phút, giây hiện tại
                     var currentDate = new Date();
-                    var day = currentDate.getDate();
-                    var month = currentDate.getMonth() + 1; // Tháng bắt đầu từ 0 nên cần cộng thêm 1
-                    var year = currentDate.getFullYear();
-                    var hours = currentDate.getHours();
-                    var minutes = currentDate.getMinutes();
-                    var seconds = currentDate.getSeconds();
+                    var formattedDate = currentDate.getDate() + "-" + (currentDate.getMonth() + 1) + "-" + currentDate.getFullYear() + " " + currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds();
 
-                    // Định dạng lại chuỗi ngày tháng năm
-                    var currentDateTimeString = day + "-" + month + "-" + year + " " + hours + ":" + minutes + ":" + seconds;
-
-                    // Tạo comment mới
                     var newComment = {
                         text: commentText,
-                        date: currentDateTimeString
+                        date: formattedDate,
+                        userName: userName
                     };
 
-                    // Thêm comment mới vào danh sách
                     comments.push(newComment);
+                    localStorage.setItem('comments_' + lessonId, JSON.stringify(comments));
 
-                    // Lưu danh sách comment vào Local Storage
-                    localStorage.setItem('comments', JSON.stringify(comments));
-
-                    // Hiển thị comment mới
                     var commentBox = createCommentBox(newComment, comments.length - 1);
                     commentBoxContainer.appendChild(commentBox);
 
-                    // Cập nhật số lượng comment và hiển thị nó
                     commentCountHeading.textContent = comments.length + " Comments";
-
-                    // Xóa nội dung của ô textarea sau khi thêm comment thành công
                     document.getElementById('commentText').value = '';
                 }
             });
 
-            // Hàm tạo phần tử comment
             function createCommentBox(comment, index) {
                 var commentBox = document.createElement('div');
                 commentBox.classList.add('box');
@@ -494,7 +433,7 @@
                 <div class="user">
                     <img src="~/images/pic-1.jpg" alt="">
                     <div>
-                        <h3>@User.Identity.Name</h3>
+                        <h3>${comment.userName}</h3>
                         <span>${comment.date}</span>
                     </div>
                 </div>
@@ -507,7 +446,6 @@
                 return commentBox;
             }
 
-            // Hàm để chỉnh sửa comment
             window.editComment = function (index) {
                 var commentText = comments[index].text;
                 document.getElementById('commentText').value = commentText;
@@ -515,33 +453,19 @@
                 editedCommentIndex = index;
             }
 
-            // Hàm để xóa comment
             window.deleteComment = function (index) {
-                // Xóa comment khỏi danh sách
                 comments.splice(index, 1);
-
-                // Lưu danh sách comment vào Local Storage
-                localStorage.setItem('comments', JSON.stringify(comments));
-
-                // Hiển thị lại các comment sau khi xóa
+                localStorage.setItem('comments_' + lessonId, JSON.stringify(comments));
                 refreshComments();
-
-                // Cập nhật số lượng comment và hiển thị nó
                 commentCountHeading.textContent = comments.length + " Comments";
             }
 
-            // Hàm để cập nhật lại các comment sau khi chỉnh sửa hoặc xóa
             function refreshComments() {
-                // Xóa tất cả các comment hiện có
                 commentBoxContainer.innerHTML = '';
-
-                // Hiển thị lại tất cả các comment sau khi chỉnh sửa hoặc xóa
                 comments.forEach(function (comment, index) {
                     var commentBox = createCommentBox(comment, index);
                     commentBoxContainer.appendChild(commentBox);
                 });
             }
         });
-
 </script>
-

@@ -1,26 +1,46 @@
 ﻿<script>
-        // JavaScript code to handle adding new question and integrating with quiz logic
-        let questions = [];
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form[asp-action='Add']");
 
-        function addQuestion() {
-            const questionContent = document.getElementById("questionContent").value;
-            const optionA = document.getElementById("optionA").value;
-            const optionB = document.getElementById("optionB").value;
-            const optionC = document.getElementById("optionC").value;
-            const optionD = document.getElementById("optionD").value;
-            const correctOption = document.getElementById("correctOption").value;
+    if (form) {
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Ngăn chặn form submit mặc định
+            addQuestion(); // Gọi hàm để thêm câu hỏi
+        });
+        }
 
-            const newQuestion = {
-                question: questionContent,
-                optionA: optionA,
-                optionB: optionB,
-                optionC: optionC,
-                optionD: optionD,
-                correctOption: correctOption
+    // Hàm thêm câu hỏi
+    function addQuestion() {
+            const questionContent = document.getElementById("QuestionContent").value;
+    const answers = [];
+
+    // Lặp qua các câu trả lời và thu thập dữ liệu từ Model hoặc trường nhập liệu
+    for (let i = 0; i < 4; i++) {
+                const answerContent = document.getElementById(`Answers_${i}__AnswerContent`).value;
+    const isCorrect = document.getElementById(`Answers_${i}__IsCorrect`).checked;
+
+    answers.push({
+        answerContent: answerContent,
+    isCorrect: isCorrect
+                });
+            }
+
+    // Gửi dữ liệu đến server
+    sendDataToServer(questionContent, answers);
+        }
+
+    function sendDataToServer(questionContent, answers) {
+            const xhr = new XMLHttpRequest();
+    xhr.open("POST", form.action, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+        // Xử lý phản hồi từ server nếu cần
+        console.log("Data saved successfully!");
+                }
             };
-
-            questions.push(newQuestion);
-            alert("Question added successfully!");
+    const data = JSON.stringify({questionContent: questionContent, answers: answers });
+    xhr.send(data);
         }
 
         let shuffledQuestions = [];
@@ -39,17 +59,26 @@
         let wrongAttempt = 0;
         let indexNumber = 0;
 
-        function NextQuestion(index) {
-            handleQuestions();
-            const currentQuestion = shuffledQuestions[index];
-            document.getElementById("question-number").innerHTML = questionNumber;
-            document.getElementById("player-score").innerHTML = playerScore;
-            document.getElementById("display-question").innerHTML = currentQuestion.question;
-            document.getElementById("option-one-label").innerHTML = currentQuestion.optionA;
-            document.getElementById("option-two-label").innerHTML = currentQuestion.optionB;
-            document.getElementById("option-three-label").innerHTML = currentQuestion.optionC;
-            document.getElementById("option-four-label").innerHTML = currentQuestion.optionD;
-        }
+
+    function NextQuestion(index) {
+        handleQuestions();
+    const currentQuestion = shuffledQuestions[index];
+    document.getElementById("question-number").innerHTML = questionNumber;
+    document.getElementById("player-score").innerHTML = playerScore;
+    document.getElementById("display-question").innerHTML = currentQuestion.question;
+
+    // Lấy ra tất cả các radio button trong class "radio"
+    const radioButtons = document.querySelectorAll('.radio');
+
+    // Lặp qua từng radio button và gán giá trị từ mảng "Answers" vào thuộc tính "value"
+    radioButtons.forEach((radio, i) => {
+        radio.value = currentQuestion["option" + String.fromCharCode(65 + i)];
+    document.getElementById("option-" + (i + 1) + "-label").innerHTML = radio.value;
+    }
+}
+
+
+
 
         function checkForAnswer() {
             const currentQuestion = shuffledQuestions[indexNumber];
@@ -152,6 +181,6 @@
         function closeOptionModal() {
             document.getElementById('option-modal').style.display = "none";
         }
+
+  });
     </script>
-</body>
-</html>

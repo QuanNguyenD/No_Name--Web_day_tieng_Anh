@@ -4,12 +4,11 @@
     ViewData["Title"] = "Add";
 }
 
-<h1>Add</h1>
+<h1>Add Question</h1>
 
-<h4>Question</h4>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!-- TinyMCE -->
+    <link href="~/admin/css/styles.css" rel="stylesheet">
     <script src="https://cdn.tiny.cloud/1/tvv1fwf3cnhtvlfxql1sp92p7vuw7mk3gj167aahzkwc68d6/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
@@ -21,33 +20,48 @@
             ],
             toolbar: 'undo redo | a11ycheck casechange blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify |' +
                 'bullist numlist checklist outdent indent | removeformat | code table help'
-        })
+        });
     </script>
 </head>
+
 <hr />
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Add">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="TestId" value="@ViewData["TestId"]" />
+            <input type="hidden" asp-for="TestId" value="@ViewBag.TestId" />
+
             <div class="form-group">
                 <label asp-for="QuestionContent" class="control-label"></label>
-
-                <textarea id="tiny" name="QuestionContent" class="form-control"></textarea>
+                <input asp-for="QuestionContent" class="form-control" />
                 <span asp-validation-for="QuestionContent" class="text-danger"></span>
             </div>
+
+            @for (int i = 0; i < 4; i++)
+            {
+                <div class="form-group">
+                    <label for="Answers_@(i)__AnswerContent" class="control-label">Answer @(char.ConvertFromUtf32(65 + i))</label>
+                    <input id="Answers_@(i)__AnswerContent" name="Answers[@i].AnswerContent" class="form-control" />
+                    <input type="hidden" name="Answers[@i].IsCorrect" value="false" />
+                    <input type="checkbox" name="Answers[@i].IsCorrect" value="true" /> Correct
+                </div>
+            }
+
             <div class="form-group">
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary mx-2" />
             </div>
         </form>
     </div>
 </div>
 
+
 <div>
-    <a asp-controller="Questions" asp-action="Index" asp-route-testId="@ViewData["TestId"]">Back to list</a>
+    <a asp-controller="Questions" asp-action="Index" asp-route-testId="@ViewBag.TestId" class="btn btn-primary mx-2">Back to list</a>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
