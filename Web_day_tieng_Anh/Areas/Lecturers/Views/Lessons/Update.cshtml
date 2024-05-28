@@ -30,6 +30,7 @@
         <form asp-action="Update" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="LessionId" />
+           @* <input type="hidden" asp-for="ImgUrl" /> *@
            
             <div class="form-group">
                 <label asp-for="LessonName" class="control-label"></label>
@@ -46,14 +47,18 @@
                 <label asp-for="ImgUrl">Product Video</label>
                 <input type="file" asp-for="ImgUrl" name="videoUrl" class="form-control" id="videoInput" />
                 <video class="mt-2" width="400" controls id="previewVideo">
-                    <source src="@Model.ImgUrl" type="video/mp4">
+                    @if (!string.IsNullOrEmpty(Model.ImgUrl))
+                    {
+                        <source src="@Model.ImgUrl" type="video/mp4">
+                    }
                     Your browser does not support HTML video.
                 </video>
             </div>
 
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+            
+                @* <input type="submit" value="Save" class="btn btn-primary" /> *@
+                <button type="submit" value="Save" class="btn btn-primary">Update</button>
+            
         </form>
     </div>
 </div>
@@ -62,14 +67,26 @@
     <a asp-controller="Lessons" asp-action="Index" asp-route-courseId="@Model.CourseId">Back to list</a>
 </div>
 
-<script>
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <li>@error.ErrorMessage</li>
+            }
+        </ul>
+    </div>
+}
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
     document.getElementById('videoInput').addEventListener('change', function (e) {
         var video = document.getElementById('previewVideo');
         var videoUrl = URL.createObjectURL(this.files[0]);
         video.src = videoUrl;
     });
-</script>
+    </script>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -135,7 +135,7 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
             return View(lesson);
         }
         // Xử lý cập nhật sản phẩm
-        [HttpPost]
+
         //public async Task<IActionResult> Update(int id, Lesson lesson, IFormFile videoUrl)
         //{
         //    ModelState.Remove("ImgUrl");
@@ -179,7 +179,8 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
         //    //return View(lesson);
         //    return RedirectToAction("Index", "Lessons", new { courseId });
         //}
-        public async Task<IActionResult> Update(int id, [Bind("LessonId, LessonName, LessonDescription")] Lesson lesson, IFormFile videoUrl)
+        [HttpPost]
+        public async Task<IActionResult> Update(int id, [Bind("LessonId, LessonName, LessonDescription, ImgUrl")] Lesson lesson, IFormFile? videoUrl = null)
         {
             ModelState.Remove("ImgUrl");
             var existingLesson = await _lessonRepository.GetByIdAsync(id);
@@ -196,17 +197,15 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
                 }
                 else
                 {
-                    
-
                     lesson.ImgUrl = await SaveVideo(videoUrl);
                 }
 
 
-                // Cập nhật các thông tin khác 
+                
                 existingLesson.LessonName = lesson.LessonName;
                 existingLesson.LessonDescription = lesson.LessonDescription;
                 existingLesson.ImgUrl = lesson.ImgUrl;
-                
+
 
                 await _lessonRepository.UpdateAsync(existingLesson);
                 return RedirectToAction("Index", "Lessons", new { courseId = existingLesson.CourseId });
