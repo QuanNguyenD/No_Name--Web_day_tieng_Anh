@@ -3,7 +3,28 @@
 @{
     ViewData["Title"] = "Display";
 }
+<style>
+    .custom-button {
+        display: inline-block;
+        padding: 10px 20px;
+        border: 2px solid #00920B;
+        background-color: #00920B;
+        color: black;
+        text-decoration: none;
+        font-size: 16px;
+        text-align: center;
+        transition: background-color 0.3s, color 0.3s;
+        border-radius: 5px;
+    }
 
+        .custom-button:hover {
+            background-color: gray;
+            color: white;
+            text-shadow: 0 0 5px white;
+        }
+</style>
+
+<div class="container-fluid px-4">
 <h1>Display</h1>
 
 <div>
@@ -26,6 +47,7 @@
     </dl>
 </div>
 <div>
-    <a asp-controller="Tests" asp-action="Index" asp-route-courseId="@Model.CourseId">Back to list</a>
-    <a asp-controller="Tests" asp-action="Index" asp-route-TestId="@Model.TestId" class="btn btn-primary mx-2">List questions</a>
+    <a asp-controller="Tests" asp-action="Index" asp-route-courseId="@Model.CourseId" class="custom-button">Back to list</a>
+    @* <a asp-controller="Tests" asp-action="Index" asp-route-TestId="@Model.TestId" class="custom-button">List questions</a> *@
+</div>
 </div>

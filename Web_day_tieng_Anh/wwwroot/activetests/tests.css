@@ -9,9 +9,10 @@ html, body {
 }
 
 
-body {
+/*body {
     font-family: 'Montserrat', serif;
 }
+*/
 
 main {
     width: 100%;
@@ -20,9 +21,9 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: black;
+/*    background-color: #00C00F;
     background: url('../assets/background_image.jpg');
-    background-color: black;
+    background-color: #00C00F;*/
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -300,3 +301,15 @@ input[type=radio]:checked ~ .option {
         opacity: 1;
     }
 }
+input[type=radio]:checked ~ .option {
+    background: paleturquoise;
+}
+
+input[type=radio]:checked[data-correct="true"] ~ .option {
+    background: lightgreen;
+}
+
+input[type=radio]:checked[data-correct="false"] ~ .option {
+    background: lightcoral;
+}
+

@@ -263,19 +263,28 @@ namespace Web_day_tieng_Anh.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommentId"));
 
-                    b.Property<string>("CommentContent")
+                    b.Property<string>("Date")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LessionId")
+                    b.Property<int>("LessonId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("LessonLessionId")
-                        .HasColumnType("int");
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CommentId");
 
-                    b.HasIndex("LessonLessionId");
+                    b.HasIndex("LessonId");
 
                     b.ToTable("Comments");
                 });
@@ -576,7 +585,9 @@ namespace Web_day_tieng_Anh.Migrations
                 {
                     b.HasOne("Web_day_tieng_Anh.Models.Lesson", "Lesson")
                         .WithMany("Comments")
-                        .HasForeignKey("LessonLessionId");
+                        .HasForeignKey("LessonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Lesson");
                 });

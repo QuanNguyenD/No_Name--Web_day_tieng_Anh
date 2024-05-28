@@ -4,36 +4,65 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Các câu hỏi</h1>
 
-<p>
-    @* <a asp-controller="Questions" asp-action="Add" asp-route-courseId="@Model.FirstOrDefault()?.CourseId" class="btn btn-primary mx-2">Add</a> *@
-</p>
 <table class="table">
-    
-    <tbody>
-@foreach (var item in Model) {
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.QuestionContent)
-            </td>
-            
-            <td>
-                <a asp-action="Update" asp-route-id="@item.QuestionId">Edit</a> |
-                <a asp-action="Display" asp-route-id="@item.QuestionId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.QuestionId">Delete</a>
-            </td>
+            <th>Question</th>
+            <th>Answers</th>
+            <th>Correct Answer</th>
+            <th>Actions</th>
         </tr>
-}
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.Raw(item.QuestionContent.Replace("<p>", "").Replace("</p>", ""))</td>
+                <td>
+                    <ul>
+                        @foreach (var answer in item.Answers)
+                        {
+                            <li>
+                                @Html.Raw(answer.AnswerContent.Replace("<p>", "").Replace("</p>", ""))
+                                @if (answer.IsCorrect)
+                                {
+                                    <strong>(Correct)</strong>
+                                }
+                            </li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    @foreach (var answer in item.Answers)
+                    {
+                        if (answer.IsCorrect)
+                        {
+                            <span>@answer.AnswerContent</span>
+                            <span>&#10003;</span>
+                            break;
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@item.QuestionId" asp-route-testId="@item.TestId" class="btn btn-primary mx-2">Edit</a> |
+                    <a asp-action="Display" asp-route-id="@item.QuestionId" class="btn btn-primary mx-2">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.QuestionId" class="btn btn-primary mx-2">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
-@* <a asp-controller="Tests" asp-action="Index" asp-route-testId="">Back to list</a> *@
+
+<div>
+    <a asp-controller="Tests" asp-action="Display" asp-route-id="@Model.FirstOrDefault()?.TestId" class="btn btn-primary mx-2">Back</a>
+</div>
+
+
 @section Scripts {
     <script>
-        // Get all elements with class "serial-number"
         var serialNumbers = document.querySelectorAll('.serial-number');
-
-        // Loop through each element and set its text content to the corresponding index + 1
         serialNumbers.forEach(function (element, index) {
             element.textContent = index + 1;
         });
