@@ -76,14 +76,17 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _questionRepository.AddAsync(question);
+                // Thêm câu hỏi và câu trả lời vào cơ sở dữ liệu
+                _context.Questions.Add(question);
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index), new { testId = question.TestId });
             }
 
-            var test = await _testRepository.GetAllAsync();
-            ViewBag.Test = new SelectList(test, "TestId", "TestName", question.TestId);
+            ViewBag.TestId = question.TestId;
             return View(question);
         }
+
 
         public async Task<IActionResult> Update(int id)
         {
@@ -106,7 +109,6 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Lấy câu hỏi cũ từ cơ sở dữ liệu
                 var existingQuestion = await _context.Questions
                     .Include(q => q.Answers)
                     .FirstOrDefaultAsync(q => q.QuestionId == questionUpdate.QuestionId);
@@ -116,13 +118,9 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
                     return NotFound();
                 }
 
-                // Cập nhật nội dung của câu hỏi
                 existingQuestion.QuestionContent = questionUpdate.QuestionContent;
-
-                // Xóa tất cả câu trả lời cũ của câu hỏi
                 _context.Answers.RemoveRange(existingQuestion.Answers);
 
-                // Thêm các câu trả lời mới
                 foreach (var answer in questionUpdate.Answers)
                 {
                     existingQuestion.Answers.Add(new Answer
@@ -132,16 +130,15 @@ namespace Web_day_tieng_Anh.Areas.Lecturers.Controllers
                     });
                 }
 
-                // Lưu thay đổi vào cơ sở dữ liệu
                 _context.Questions.Update(existingQuestion);
                 await _context.SaveChangesAsync();
 
                 return Ok();
             }
 
-            // Nếu ModelState không hợp lệ, trả về mã lỗi
             return BadRequest(ModelState);
         }
+
 
 
         // Lớp dùng để đại diện cho dữ liệu được gửi từ trình duyệt

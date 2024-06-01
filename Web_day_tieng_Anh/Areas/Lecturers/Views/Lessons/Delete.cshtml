@@ -39,8 +39,8 @@
     
     <form asp-action="Delete" id="deleteForm">
         <input type="hidden" asp-for="LessionId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-controller="Lessons" asp-action="Index" asp-route-courseId="@Model.CourseId">Back to list</a>
+        <input type="submit" value="Delete" class="btn btn-danger" style="color: #000;" /> |
+        <a asp-controller="Lessons" asp-action="Index" asp-route-courseId="@Model.CourseId" class="btn btn-primary" style="color: #000;">Back to list</a>
     </form>
 </div>
 @section Scripts {

@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\activetests\tests.css" />
-    <None Include="wwwroot\activetests\tests.js" />
+    <None Include="wwwroot\activetestslecturers\tests.css" />
+    <None Include="wwwroot\activetestslecturers\tests.js" />
   </ItemGroup>
 
   <ItemGroup>

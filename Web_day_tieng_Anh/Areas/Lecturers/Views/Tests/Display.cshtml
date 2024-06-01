@@ -26,8 +26,8 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.TestId" class="btn btn-primary mx-2">Edit</a> |
-    <a asp-controller="Tests" asp-action="Index" asp-route-courseId="@Model.CourseId" class="btn btn-primary mx-2">Back to list</a>
-    <a asp-controller="Questions" asp-action="Add" asp-route-TestId="@Model.TestId" class="btn btn-primary mx-2">Add Question</a>
-    <a asp-controller="Questions" asp-action="Index" asp-route-TestId="@Model.TestId" class="btn btn-primary mx-2">List Questions</a>
+    <a asp-controller="Tests" asp-action="Update" asp-route-id="@Model.TestId" class="btn btn-primary mx-2" style="color: #000;">Edit</></a> |
+    <a asp-controller="Tests" asp-action="Index" asp-route-courseId="@Model.CourseId" class="btn btn-warning mx-2" style="color: #000;">Back to list</a>
+    <a asp-controller="Questions" asp-action="Add" asp-route-TestId="@Model.TestId" class="btn btn-primary mx-2" style="color: #000;">Add Question</a>
+    <a asp-controller="Questions" asp-action="Index" asp-route-TestId="@Model.TestId" class="btn btn-primary mx-2" style="color: #000;">List Questions</a>
 </div>

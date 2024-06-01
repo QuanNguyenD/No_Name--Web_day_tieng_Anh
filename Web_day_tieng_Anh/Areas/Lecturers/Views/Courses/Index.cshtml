@@ -8,7 +8,7 @@
 <h1>Manage Home</h1>
 
 <p>
-    <a asp-action="Add" class="btn btn-primary">Create New</a>
+    <a asp-action="Add" class="btn btn-primary" style="color: #000;">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -57,8 +57,8 @@
                    @*  <a href="@Url.Action("Display", "Courses", new { id = item.CourseId })">View Details</a> *@
                     @*<a href="@Url.Action("Index", "Lessons", new { id = item.CourseId })">View Details</a>*@
 
-                    
-                    <a asp-action="Display" asp-route-id="@item.CourseId"><i class="bi bi-three-dots" title="Details"></i></a>
+
+                    <a asp-action="Display" asp-route-id="@item.CourseId"><i class="bi bi-three-dots" style="color: #000;" title="Details"></i></a>
                     
                 </th>
                 

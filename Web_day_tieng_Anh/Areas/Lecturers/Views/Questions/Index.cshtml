@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<link href="~/activetests/tests.js" rel="stylesheet">
 <h1>Các câu hỏi</h1>
 
 <table class="table">
@@ -28,27 +28,23 @@
                                 @Html.Raw(answer.AnswerContent.Replace("<p>", "").Replace("</p>", ""))
                                 @if (answer.IsCorrect)
                                 {
-                                    <strong>(Correct)</strong>
+                                    @* <strong>(Correct)</strong> *@
                                 }
                             </li>
                         }
                     </ul>
                 </td>
-                <td>
-                    @foreach (var answer in item.Answers)
+                <td id="correct-answer-@item.QuestionId">
+                    @Html.Raw(item.Answers.FirstOrDefault(a => a.IsCorrect)?.AnswerContent?.Replace("<p>", "").Replace("</p>", ""))
+                    @if (item.Answers.Any(a => a.IsCorrect))
                     {
-                        if (answer.IsCorrect)
-                        {
-                            <span>@answer.AnswerContent</span>
-                            <span>&#10003;</span>
-                            break;
-                        }
+                        @* <span>&#10003;</span> *@
                     }
                 </td>
                 <td>
-                    <a asp-action="Update" asp-route-id="@item.QuestionId" asp-route-testId="@item.TestId" class="btn btn-primary mx-2">Edit</a> |
-                    <a asp-action="Display" asp-route-id="@item.QuestionId" class="btn btn-primary mx-2">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.QuestionId" class="btn btn-primary mx-2">Delete</a>
+                    <a asp-action="Update" asp-route-id="@item.QuestionId" asp-route-testId="@item.TestId" class="btn btn-primary mx-2" style="color: #000;">Edit</a> |
+                    <a asp-action="Display" asp-route-id="@item.QuestionId" class="btn btn-primary mx-2" style="color: #000;">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.QuestionId" class="btn btn-primary mx-2" style="color: #000;">Delete</a>
                 </td>
             </tr>
         }
@@ -56,9 +52,8 @@
 </table>
 
 <div>
-    <a asp-controller="Tests" asp-action="Display" asp-route-id="@Model.FirstOrDefault()?.TestId" class="btn btn-primary mx-2">Back</a>
+    <a asp-controller="Tests" asp-action="Display" asp-route-id="@Model.FirstOrDefault()?.TestId" class="btn btn-primary mx-2 mb-3" style="color: #000;">Back</a>
 </div>
-
 
 @section Scripts {
     <script>

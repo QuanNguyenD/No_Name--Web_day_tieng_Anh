@@ -25,10 +25,11 @@
 </style>
 
 <div class="container-fluid px-4">
-<h1>Display</h1>
-
+    <h1 class="mt-4">Display</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">My Test Detail</li>
+    </ol>
 <div>
-    <h4>Test</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
@@ -47,7 +48,7 @@
     </dl>
 </div>
 <div>
-    <a asp-controller="Tests" asp-action="Index" asp-route-courseId="@Model.CourseId" class="custom-button">Back to list</a>
-    @* <a asp-controller="Tests" asp-action="Index" asp-route-TestId="@Model.TestId" class="custom-button">List questions</a> *@
+    <a asp-controller="Tests" asp-action="Index" asp-route-courseId="@Model.CourseId" class="custom-button mx-2">Back to list</a>
+    <a asp-controller="Questions" asp-action="Index" asp-route-TestId="@Model.TestId" class="custom-button mx-2">Questions</a>
 </div>
 </div>
