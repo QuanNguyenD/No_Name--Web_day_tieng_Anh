@@ -2,33 +2,63 @@
 
 @{
     ViewData["Title"] = "Index";
+    var questionList = Model.ToList();
 }
 
-<h1>Index</h1>
+<div class="container-fluid px-4 mt-4">
+    <link href="~/activetestsstudents/tests.css" rel="stylesheet">
+    <script src="~/activetestsstudents/tests.js"></script>
 
-<p>
-    @* <a asp-controller="Questions" asp-action="Add" asp-route-courseId="@Model.FirstOrDefault()?.CourseId" class="btn btn-primary mx-2">Add</a> *@
-</p>
-<table class="table">
+    <main>
+        <div class="modal-container" id="score-modal">
+            <div class="modal-content-container">
+                <h1>Congratulations, Quiz Completed.</h1>
+                <div class="grade-details">
+                    <p>Attempts : @questionList.Count()</p>
+                    <p>Wrong Answers : <span id="wrong-answers"></span></p>
+                    <p>Right Answers : <span id="right-answers"></span></p>
+                    <p>Grade : <span id="grade-percentage"></span>%</p>
+                    <p><span id="remarks"></span></p>
+                </div>
+                <div class="modal-button-container">
+                    <button onclick="closeScoreModal()">Continue</button>
+                </div>
+            </div>
+        </div>
 
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.QuestionContent)
-                </td>
+        <div class="game-quiz-container">
+            <div class="game-details-container">
+                <h1>Score : <span id="player-score">0</span> / <span id="total-questions">@questionList.Count()</span></h1>
+                <h1>Question : <span id="question-number">1</span> / @questionList.Count()</h1>
+            </div>
 
-                <td>
-                    <a asp-action="Update" asp-route-id="@item.QuestionId">Edit</a> |
-                    <a asp-action="Display" asp-route-id="@item.QuestionId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.QuestionId">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-@* <a asp-controller="Tests" asp-action="Index" asp-route-testId="">Back to list</a> *@
+            <div id="questions-container">
+                @foreach (var question in questionList)
+                {
+                    <div class="game-question-container" data-question-id="@question.QuestionId" style="display:none;">
+                        <h1>@Html.Raw(question.QuestionContent.Replace("<p>", "").Replace("</p>", ""))</h1>
+                        <div class="game-options-container">
+                            @foreach (var answer in question.Answers)
+                            {
+                                <span>
+                                    <input type="radio" id="option-@(answer.AnswerId)" name="option-@(question.QuestionId)" class="radio" data-correct="@answer.IsCorrect" />
+                                    <label for="option-@(answer.AnswerId)" class="option">@answer.AnswerContent</label>
+                                </span>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="next-button-container">
+                <button onclick="handleNextQuestion()">Next Question</button>
+            </div>
+        </div>
+    </main>
+
+    <a asp-controller="Tests" asp-action="Display" asp-route-id="@questionList.First().TestId" class="btn btn-primary mx-2 mb-3" style="color: #000;">Back to list</a>
+</div>
+
 @section Scripts {
     <script>
         // Get all elements with class "serial-number"

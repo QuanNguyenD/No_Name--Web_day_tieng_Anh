@@ -1,0 +1,64 @@
+﻿@* @model Web_day_tieng_Anh.Models.Question
+
+@{
+    ViewData["Title"] = "Display";
+}
+
+<link href="~/activetestslecturers/tests.css" rel="stylesheet">
+<script src="~/activetestslecturers/tests.js"></script>
+
+<main>
+    <div class="modal-container" id="score-modal">
+        <div class="modal-content-container">
+            <h1>Congratulations, Quiz Completed.</h1>
+            <div class="grade-details">
+                <p>Attempts : 10</p>
+                <p>Wrong Answers : <span id="wrong-answers"></span></p>
+                <p>Right Answers : <span id="right-answers"></span></p>
+                <p>Grade : <span id="grade-percentage"></span>%</p>
+                <p><span id="remarks"></span></p>
+            </div>
+            <div class="modal-button-container">
+                <button onclick="closeScoreModal()">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="game-quiz-container">
+        <div class="game-details-container">
+            <h1>Score : <span id="player-score"></span> / 10</h1>
+            <h1>Question : <span id="question-number"></span> / 10</h1>
+        </div>
+
+        <div class="game-question-container">
+            <h1>@Html.Raw(Model.QuestionContent.Replace("<p>", "").Replace("</p>", ""))</h1>
+        </div>
+
+        <div class="game-options-container">
+            <div class="modal-container" id="option-modal">
+                <div class="modal-content-container">
+                    <h1>Please Pick An Option</h1>
+                    <div class="modal-button-container">
+                        <button onclick="closeOptionModal()">Continue</button>
+                    </div>
+                </div>
+            </div>
+
+            @foreach (var answer in Model.Answers)
+            {
+                <span>
+                    <input type="radio" id="option-@(answer.AnswerId)" name="option" class="radio" data-correct="@answer.IsCorrect" />
+                    <label for="option-@(answer.AnswerId)" class="option">@answer.AnswerContent</label>
+                </span>
+            }
+        </div>
+
+        <div class="next-button-container">
+            <button onclick="handleNextQuestion()">Next Question</button>
+        </div>
+    </div>
+</main>
+
+<div class="mt-2 mb-2">
+    <a asp-controller="Questions" asp-action="Index" asp-route-testId="@Model.TestId" class="btn btn-primary mx-2" style="color: #000;">Back</a>
+</div> *@
