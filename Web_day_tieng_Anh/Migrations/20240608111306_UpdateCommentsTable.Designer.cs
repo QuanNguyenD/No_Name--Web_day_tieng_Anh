@@ -12,8 +12,8 @@ using Web_day_tieng_Anh.Data;
 namespace Web_day_tieng_Anh.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240526063637_initial")]
-    partial class initial
+    [Migration("20240608111306_UpdateCommentsTable")]
+    partial class UpdateCommentsTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -266,9 +266,8 @@ namespace Web_day_tieng_Anh.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CommentId"));
 
-                    b.Property<string>("Date")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("LessonId")
                         .HasColumnType("int");

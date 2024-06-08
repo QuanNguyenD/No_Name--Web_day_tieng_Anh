@@ -161,14 +161,12 @@ input[type=radio]:checked ~ .option {
 
     .modal-content-container h1 {
         font-size: 1.3rem;
-        height: 3rem;
         color: lightgray;
         text-align: center;
     }
 
 .grade-details {
     width: 15rem;
-    height: 10rem;
     display: flex;
     flex-direction: column;
     align-items: center;

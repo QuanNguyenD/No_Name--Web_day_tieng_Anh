@@ -3,8 +3,8 @@
 @{
     ViewData["Title"] = "Delete";
 }
-
-<h1>Update</h1>
+<div class="container-fluid">
+<h1>Delete</h1>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
@@ -42,6 +42,7 @@
         <input type="submit" value="Delete" class="btn btn-danger" style="color: #000;" /> |
         <a asp-controller="Lessons" asp-action="Index" asp-route-courseId="@Model.CourseId" class="btn btn-primary" style="color: #000;">Back to list</a>
     </form>
+</div>
 </div>
 @section Scripts {
     <script>

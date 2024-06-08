@@ -3,76 +3,90 @@
 @{
     ViewData["Title"] = "Display";
 }
-<style>
-    .custom-button {
-        display: inline-block;
-        padding: 10px 20px;
-        border: 2px solid #00920B;
-        background-color: #00920B;
-        color: black;
-        text-decoration: none;
-        font-size: 16px;
-        text-align: center;
-        transition: background-color 0.3s, color 0.3s;
-        border-radius: 5px;
-    }
-
-        .custom-button:hover {
-            background-color: gray;
-            color: white;
-            text-shadow: 0 0 5px white;
-        }
-</style>
+<link href="~/activestudents/votingstar.css" rel="stylesheet">
+<script src="~/activestudents/votingstar.js"></script>
+@* <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone"
+      rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Foldit:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet" /> *@
 
 <div style="background-color: #fff;">
-
     <div class="container-fluid px-4">
         <h1 class="mt-4">Course Details</h1>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item active">My Courses Details</li>
         </ol>
-    <hr />
-    <div class="row">
-        <div class="col-sm-8">
-            <dl class="row">
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.CourseName)
-                </dt>
-                <dd class="col-sm-10 pl-8" style="margin-bottom: 10px;">
-                    @Html.DisplayFor(model => model.CourseName)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.CourseDescription)
-                </dt>
-                <dd class="col-sm-10 pl-8" style="margin-bottom: 10px;">
-                    @Html.Raw(Model.CourseDescription)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Level)
-                </dt>
-                <dd class="col-sm-10 pl-8" style="margin-bottom: 10px;">
-                    @Html.DisplayFor(model => model.Level)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Price)
-                </dt>
-                <dd class="col-sm-10 pl-8" style="margin-bottom: 10px;">
-                    @Html.DisplayFor(model => model.Price)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Ratings)
-                </dt>
-                <dd class="col-sm-10 pl-8" style="margin-bottom: 10px;">
-                    @Html.DisplayFor(model => model.Ratings)
-                </dd>
-            </dl>
+        <hr />
+        <div class="row">
+            <div class="col-sm-8">
+                <dl class="row">
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.CourseName)</dt>
+                    <dd class="col-sm-10 pl-8" style="margin-bottom: 10px;">@Html.DisplayFor(model => model.CourseName)</dd>
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.CourseDescription)</dt>
+                    <dd class="col-sm-10 pl-8" style="margin-bottom: 10px;">@Html.Raw(Model.CourseDescription)</dd>
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Level)</dt>
+                    <dd class="col-sm-10 pl-8" style="margin-bottom: 10px;">@Html.DisplayFor(model => model.Level)</dd>
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Price)</dt>
+                    <dd class="col-sm-10 pl-8" style="margin-bottom: 10px;">@Html.DisplayFor(model => model.Price)</dd>
+                    <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Ratings)</dt>
+                    <dd class="col-sm-10 pl-8" style="margin-bottom: 10px;">@Html.DisplayFor(model => model.Ratings)</dd>
+                </dl>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-                <a asp-controller="Lessons" asp-action="Index" asp-route-courseId="@Model.CourseId" class="custom-button mx-2">View Lesson</a></li>
-                <a asp-controller="Tests" asp-action="Index" asp-route-courseId="@Model.CourseId" class="custom-button mx-2">View Test</a></i>
+        <div class="row">
+            <div class="col">
+                <a asp-controller="Lessons" asp-action="Index" asp-route-courseId="@Model.CourseId" class="custom-button mx-2">View Lesson</a>
+                <a asp-controller="Tests" asp-action="Index" asp-route-courseId="@Model.CourseId" class="custom-button mx-2">View Test</a>
                 <a asp-action="Index" class="custom-button mx-2">Back</a>
+                @* <button class="custom-button mx-2" onclick="showVotingForm()">Vote</button> *@
+            </div>
         </div>
     </div>
 </div>
+
+<!-- Voting Form Overlay -->
+@* <div id="votingForm" class="overlay hidden">
+    <div class="rate">
+        <button class="close-btn" onclick="hideVotingForm()">&times;</button>
+        <div class="question" style="color:white">
+            <div class="title">Voting Course</div>
+            <div class="content">
+                Please leave a review after experiencing this course. Thank you and wish you success!
+            </div>
+        </div>
+        <div class="stars">
+            <ul class="ratings">
+                <li class="star" data-value="1"></li>
+                <li class="star" data-value="2"></li>
+                <li class="star" data-value="3"></li>
+                <li class="star" data-value="4"></li>
+                <li class="star" data-value="5"></li>
+            </ul>
+        </div>
+        <div class="feedback">
+            <textarea name="feedback" id="feedback" class="feedback-textarea" placeholder="Tell us your feedback"></textarea>
+        </div>
+        <button type="submit" class="custom-button">Submit Vote</button>
+    </div>
+</div>
+
+<script>
+    function showVotingForm() {
+        document.getElementById('votingForm').classList.remove('hidden');
+    }
+
+    function hideVotingForm() {
+        document.getElementById('votingForm').classList.add('hidden');
+    }
+
+    $(document).ready(function () {
+        $('.star').on('click', function () {
+            var value = $(this).data('value');
+            $('#rating').val(value);
+            $(this).siblings().removeClass('selected');
+            $(this).addClass('selected');
+        });
+    });
+</script> *@

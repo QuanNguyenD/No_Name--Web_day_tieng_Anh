@@ -1,0 +1,250 @@
+﻿.custom-button {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px solid #00920B;
+    background-color: #00920B;
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    .custom-button:hover {
+        background-color: gray;
+        color: white;
+        text-shadow: 0 0 5px white;
+    }
+
+.container-fluid {
+    background-color: gray;
+}
+
+.outer-container {
+    background-color: white; /* Set outermost background color */
+    padding: 20px; /* Add padding for spacing */
+    border-radius: 10px; /* Add rounded corners */
+}
+
+.video-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #000;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 10px;
+    width: 100%; /* Ensure the container takes full width */
+    max-width: 800px; /* Optionally limit the maximum width */
+    margin: auto; /* Center the container */
+}
+
+.breadcrumb {
+    display: flex;
+    justify-content: center;
+}
+
+.watch-video .video-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; /* Ensure the container takes full width */
+    border: none; /* Remove border */
+}
+
+.watch-video .video {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 20px;
+}
+
+.watch-video .title {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.watch-video .info {
+    display: flex;
+    justify-content: flex-start; /* Align items to the left */
+    align-items: center;
+    width: 100%;
+    max-width: 800px; /* Ensure the content does not exceed the container */
+    margin-bottom: 20px;
+    gap: 20px; /* Space between the items */
+}
+
+    .watch-video .info p {
+        display: flex;
+        align-items: center;
+        margin: 0;
+    }
+
+    .watch-video .info i {
+        margin-right: 5px;
+    }
+
+.watch-video .tutor {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    justify-content: flex-start; /* Align items to the left */
+    width: 100%;
+    max-width: 800px; /* Ensure the content does not exceed the container */
+}
+
+    .watch-video .tutor img {
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+.watch-video .flex {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 800px; /* Ensure the content does not exceed the container */
+    margin-bottom: 20px;
+}
+
+.watch-video .description {
+    margin-top: 20px;
+}
+
+.comments .heading {
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+.comments .add-comment h3 {
+    margin-bottom: 10px;
+}
+
+.comments .add-comment textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.comments .box-container {
+    margin-top: 20px;
+}
+
+.comments .box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+    .comments .box .user {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+        .comments .box .user img {
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+    .comments .box .comment-box {
+        margin-bottom: 10px;
+    }
+
+    .comments .box .flex-btn {
+        display: flex;
+        justify-content: flex-start; /* Đẩy các nút sang bên trái */
+    }
+
+.fa-calendar {
+    color: blue;
+}
+
+.fa-heart {
+    color: red;
+}
+
+.like-button {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+    .like-button i {
+        margin-right: 5px;
+    }
+
+    .like-button:hover,
+    .like-button:active {
+        background-color: #333;
+    }
+
+.add-comment-button {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px solid #00920B;
+    background-color: #00920B;
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    .add-comment-button:hover {
+        background-color: gray;
+        color: white;
+        text-shadow: 0 0 5px white;
+    }
+
+.edit-comment-button {
+    background-color: orange; /* Màu vàng */
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.delete-comment-button {
+    background-color: #FF0000; /* Màu đỏ */
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    .comment-button:hover,
+    .edit-comment-button:hover,
+    .delete-comment-button:hover {
+        background-color: gray; /* Màu xám khi hover vào */
+        color: white;
+    }
+
+.edit-comment-button,
+.delete-comment-button {
+    width: 150px; /* Độ rộng */
+    height: 40px; /* Chiều cao */
+    font-size: 16px; /* Kích thước chữ */
+    margin-right: 10px; /* Khoảng cách giữa các nút */
+}
+
+.custom-button,
+.like-button,
+.add-comment-button,
+.edit-comment-button,
+.delete-comment-button {
+    border-radius: 5px;
+}
+
+.watch-video .video-divider {
+    border: none;
+    border-top: 2px solid #000; /* Màu đen và dày hơn để dễ nhìn */
+    margin: 20px 0; /* Khoảng cách trên dưới */
+}

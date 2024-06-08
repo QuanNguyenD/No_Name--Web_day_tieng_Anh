@@ -6,8 +6,8 @@
 }
 
 <div class="container-fluid px-4 mt-4">
-    <link href="~/activetestsstudents/tests.css" rel="stylesheet">
-    <script src="~/activetestsstudents/tests.js"></script>
+    <link href="~/activestudents/tests.css" rel="stylesheet">
+    <script src="~/activestudents/tests.js"></script>
 
     <main>
         <div class="modal-container" id="score-modal">
@@ -58,7 +58,6 @@
 
     <a asp-controller="Tests" asp-action="Display" asp-route-id="@questionList.First().TestId" class="btn btn-primary mx-2 mb-3" style="color: #000;">Back to list</a>
 </div>
-
 @section Scripts {
     <script>
         // Get all elements with class "serial-number"

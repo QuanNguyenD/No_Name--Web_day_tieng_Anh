@@ -12,36 +12,29 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                Serial Number
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TestName)
-            </th>
-            
-            
+            <th>Serial Number</th>
+            <th>@Html.DisplayNameFor(model => model.TestName)</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
+        @foreach (var item in Model)
+        {
+            <tr>
                 <td class="serial-number"></td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TestName)
-            </td>
-            
-            
-            <td>
+                <td>@Html.DisplayFor(modelItem => item.TestName)</td>
+                <td>
                     <a asp-action="Update" asp-route-id="@item.TestId" class="btn btn-primary mx-2" style="color: #000;">Edit</a> |
                     <a asp-action="Display" asp-route-id="@item.TestId" class="btn btn-primary mx-2" style="color: #000;">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.TestId" class="btn btn-danger mx-2" style="color: #000;">Delete</a>
-            </td>
-        </tr>
-}
+                    @* <a asp-controller="TestScores" asp-action="Index" asp-route-testId="@item.TestId" asp-area="Lecturers" class="btn btn-primary mx-2" style="color: #000;">Scores</a> *@
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 <a asp-controller="Courses" asp-action="Display" asp-route-id="@Model.FirstOrDefault()?.CourseId" class="btn btn-warning mx-2" style="color: #000;">Back</a>
+
 @section Scripts {
     <script>
         // Get all elements with class "serial-number"
