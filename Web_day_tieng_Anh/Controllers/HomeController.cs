@@ -56,13 +56,13 @@ namespace Web_day_tieng_Anh.Controllers
         }
         public async Task<IActionResult> Class11()
         {
-            var class10 = await _coursesRepository.GetAllAsync();
-            return View(class10);
+            var class11 = await _coursesRepository.GetAllAsync();
+            return View(class11);
         }
         public async Task<IActionResult> Class12()
         {
-            var class10 = await _coursesRepository.GetAllAsync();
-            return View(class10);
+            var class12 = await _coursesRepository.GetAllAsync();
+            return View(class12);
         }
 
         public async Task<IActionResult> Courses()
